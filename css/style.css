@@ -1,0 +1,86 @@
+:root {
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-accent-1: #0080ff;
+  --color-accent-2: #ff4040;
+  --color-text: var(--color-black);
+  --color-background: var(--color-white);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: var(--color-white);
+    --color-background: var(--color-black);
+  }
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('../fonts/BarlowCondensed-Thin.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeue-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inconsolata';
+  src: url('../fonts/Inconsolata-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Scope One';
+  src: url('../fonts/ScopeOne-Regular.ttf') format('truetype');
+}
+
+body {
+  color: var(--color-text);
+  background-color: var(--color-background);
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Barlow Condensed', sans-serif;
+  margin: 0;
+}
+
+code, textarea {
+  font-family: 'Inconsolata', monospace;
+  font-size: 0.8em;
+}
+
+blockquote {
+  font-family: 'Scope One', serif;
+}
+
+blockquote, pre {
+  border-left: 2px solid var(--color-accent-1);
+  margin: 0;
+  padding-left: 2ch;
+}
+
+textarea {
+  width: 100%;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  resize: vertical;
+}
+
+h1 { font-size: 2.0em; }
+h2 { font-size: 1.7em; }
+h3 { font-size: 1.5em; }
+h4 { font-size: 1.4em; }
+h5 { font-size: 1.3em; }
+
+a {
+  color: var(--color-text);
+  text-decoration-color: var(--color-accent-1);
+}
+a:hover {
+  text-decoration-color: var(--color-accent-2);
+}
+
+menu {
+  list-style: none;
+}
