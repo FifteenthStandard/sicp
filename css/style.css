@@ -45,16 +45,16 @@ h1, h2, h3, h4, h5 {
   margin: 0;
 }
 
-code, textarea {
+code, textarea, output {
   font-family: 'Inconsolata', monospace;
-  font-size: 0.8em;
+  font-size: 1em;
 }
 
 blockquote {
   font-family: 'Scope One', serif;
 }
 
-blockquote, pre {
+blockquote {
   border-left: 2px solid var(--color-accent-1);
   margin: 0;
   padding-left: 2ch;
@@ -65,6 +65,21 @@ textarea {
   color: var(--color-text);
   background-color: var(--color-background);
   resize: vertical;
+  outline: none;
+  border: none;
+  padding-left: 2ch;
+  border-left: 2px solid var(--color-accent-1);
+}
+
+output {
+  white-space: pre;
+  font-style: italic;
+}
+
+output.block {
+  display: block;
+  padding-left: 2ch;
+  border-left: 2px solid var(--color-accent-2);
 }
 
 h1 { font-size: 2.0em; }
@@ -79,6 +94,10 @@ a {
 }
 a:hover {
   text-decoration-color: var(--color-accent-2);
+}
+
+table {
+  border-spacing: 1ch;
 }
 
 menu {
