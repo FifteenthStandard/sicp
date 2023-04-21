@@ -996,20 +996,21 @@ circumference
     of machine instructions that are their “values.” The key point to notice is
     the role of the environment in determining the meaning of the symbols in
     expressions. In an interactive language such as Lisp, it is meaningless to
-    speak of the value of an expression such as <code>(+ x 1)</code> without
-    specifying any information about the environment that would provide a
-    meaning for the symbol <code>x</code> (or even for the symbol
+    speak of the value of an expression such as <code>(+&nbsp;x&nbsp;1)</code>
+    without specifying any information about the environment that would provide
+    a meaning for the symbol <code>x</code> (or even for the symbol
     <code>+</code>). As we shall see in chapter 3, the general notion of the
     environment as providing a context in which evaluation takes place will
     play an important role in our understanding of program execution.
   </p>
   <p>
     Notice that the evaluation rule given above does not handle definitions.
-    For instance, evaluating <code>(define x 3)</code> does not apply
+    For instance, evaluating <code>(define&nbsp;x&nbsp;3)</code> does not apply
     <code>define</code> to two arguments, one of which is the value of the
     symbol <code>x</code> and the other of which is <code>3</code>, since the
     purpose of the <code>define</code> is precisely to associate <code>x</code>
-    with a value. (That is, <code>(define x 3)</code> is not a combination.)
+    with a value. (That is, <code>(define&nbsp;x&nbsp;3)</code> is not a
+    combination.)
   </p>
   <p>
     Such exceptions to the general evaluation rule are called <em>special
@@ -1178,9 +1179,9 @@ To      square something, multiply   it by itself.</code></pre>
     operands and an operator <code>sum-of-squares</code>. Evaluating this
     combination involves three subproblems. We must evaluate the operator to
     get the procedure to be applied, and we must evaluate the operands to get
-    the arguments. Now <code>(+ 5 1)</code> produces <code>6</code> and
-    <code>(* 5 2)</code> produces <code>10</code>, so we must apply the
-    <code>sum-of-squares</code> procedure to <code>6</code> and
+    the arguments. Now <code>(+&nbsp;5&nbsp;1)</code> produces <code>6</code>
+    and <code>(*&nbsp;5&nbsp;2)</code> produces <code>10</code>, so we must
+    apply the <code>sum-of-squares</code> procedure to <code>6</code> and
     <code>10</code>. These values are substituted for the formal parameters
     <code>x</code> and <code>y</code> in the body of
     <code>sum-of-squares</code>, reducing the expression to
@@ -1262,14 +1263,14 @@ To      square something, multiply   it by itself.</code></pre>
                     136</code></pre>
   <p>
     This gives the same answer as our previous evaluation model, but the
-    process is different. In particular, the evaluations of <code>(+ 5
-    1)</code> and <code>(* 5 2)</code> are each performed twice here,
-    corresponding to the reduction of the expression
+    process is different. In particular, the evaluations of <code
+    >(+&nbsp;5&nbsp;1)</code> and <code>(*&nbsp;5&nbsp;2)</code> are each
+    performed twice here, corresponding to the reduction of the expression
   </p>
   <pre><code>(* x x)</code></pre>
   <p>
-    with <code>x</code> replaced respectively by <code>(+ 5 1)</code> and
-    <code>(* 5 2)</code>.
+    with <code>x</code> replaced respectively by <code>(+&nbsp;5&nbsp;1)</code>
+    and <code>(*&nbsp;5&nbsp;2)</code>.
   </p>
   <p>
     This alternative “fully expand and then reduce” evaluation method is known
@@ -1286,13 +1287,13 @@ To      square something, multiply   it by itself.</code></pre>
   <p>
     Lisp uses applicative-order evaluation, partly because of the additional
     efficiency obtained from avoiding multiple evaluations of expressions such
-    as those illustrated with <code>(+ 5 1)</code> and <code>(* 5 2)</code>
-    above and, more significantly, because normal-order evaluation becomes much
-    more complicated to deal with when we leave the realm of procedures that
-    can be modeled by substitution. On the other hand, normal-order evaluation
-    can be an extremely valuable tool, and we will investigate some of its
-    implications in chapters 3 and 4.<sup id="r1.16s"><a href="#r1.16d"
-    >16</a></sup>
+    as those illustrated with <code>(+&nbsp;5&nbsp;1)</code> and <code
+    >(*&nbsp;5&nbsp;2)</code> above and, more significantly, because
+    normal-order evaluation becomes much more complicated to deal with when we
+    leave the realm of procedures that can be modeled by substitution. On the
+    other hand, normal-order evaluation can be an extremely valuable tool, and
+    we will investigate some of its implications in chapters 3 and 4.<sup
+    id="r1.16s"><a href="#r1.16d">16</a></sup>
   </p>
 </section>
 
@@ -1391,7 +1392,7 @@ To      square something, multiply   it by itself.</code></pre>
   <output for="1.1.6-02" class="block">abs</output>
   <p>
     which could be expressed in English as “If <code>x</code> is less than zero
-    return <code>- x</code>; otherwise return <code>x</code>.”
+    return <code>-&nbsp;x</code>; otherwise return <code>x</code>.”
     <code>Else</code> is a special symbol that can be used in place of the
     <code><em>&lt;p&gt;</em></code> in the final clause of a <code>cond</code>.
     This causes the <code>cond</code> to return as its value the value of the
@@ -1905,7 +1906,7 @@ test</output>
     concerned with how the procedure computes its result, only with the fact
     that it computes the square. The details of how the square is computed can
     be suppressed, to be considered at a later time. Indeed, as far as
-    <code>the good-enough?</code> procedure is concerned, <code>square</code>
+    the <code>good-enough?</code> procedure is concerned, <code>square</code>
     is not quite a procedure but rather an abstraction of a procedure, a
     so-called procedural abstraction. At this level of abstraction, any
     procedure that computes the square is equally good.
@@ -2222,7 +2223,7 @@ improve</output>
   <p>
     <sup id="r1.18d"><a href="#r1.18s">18</a></sup> Abs also uses the “minus”
     operator <code>-</code>, which, when used with a single operand, as in
-    <code>(- x)</code>, indicates negation.
+    <code>(-&nbsp;x)</code>, indicates negation.
   </p>
   <p>
     <sup id="r1.19d"><a href="#r1.19s">19</a></sup> A minor difference between

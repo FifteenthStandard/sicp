@@ -91,18 +91,22 @@ output.block {
   border-left: 2px solid var(--color-accent-2);
 }
 
-pre, textarea {
-  max-width: 100vw;
+pre, textarea, table, math {
+  max-width: calc(100vw - 2ch);
   overflow-x: auto;
 }
 
 figure {
+  max-width: calc(100vw - 2ch);
   margin: auto;
   text-align: center;
 }
 
-mtext { white-space: pre; }
+img {
+  max-width: 100%;
+}
 
+mtext { white-space: pre; }
 
 a {
   color: var(--color-text);
