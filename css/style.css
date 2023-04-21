@@ -38,6 +38,8 @@ body {
   color: var(--color-text);
   background-color: var(--color-background);
   font-family: 'Helvetica Neue', sans-serif;
+  font-size: 1.5em;
+  padding-inline: 1ch;
 }
 
 h1, h2, h3, h4, h5 {
@@ -52,12 +54,9 @@ code, textarea, output {
 
 blockquote {
   font-family: 'Scope One', serif;
-}
-
-blockquote {
-  border-left: 2px solid var(--color-accent-1);
   margin: 0;
   padding-left: 2ch;
+  border-left: 2px solid var(--color-accent-1);
 }
 
 textarea {
@@ -69,6 +68,7 @@ textarea {
   border: none;
   padding-left: 2ch;
   border-left: 2px solid var(--color-accent-1);
+  box-sizing: border-box;
 }
 
 output {
@@ -80,6 +80,11 @@ output.block {
   display: block;
   padding-left: 2ch;
   border-left: 2px solid var(--color-accent-2);
+}
+
+pre, textarea {
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 h1 { font-size: 2.0em; }

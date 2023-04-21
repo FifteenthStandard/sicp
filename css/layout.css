@@ -4,7 +4,7 @@ body > main { grid-area: main; }
 body > footer { grid-area: footer; }
 body > nav { grid-area: nav; }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
   body {
     grid-template-areas:
       'header'
@@ -12,10 +12,12 @@ body > nav { grid-area: nav; }
       'main'
       'footer';
     padding: 1vh 1vw;
+    margin: auto;
+    max-width: 900px;
   }
 }
 
-@media screen and (min-width: 1001px) {
+@media screen and (min-width: 1201px) {
   body {
     grid-template-areas:
       'nav header'
@@ -24,7 +26,6 @@ body > nav { grid-area: nav; }
     column-gap: 2ch;
     margin: auto;
     width: fit-content;
-    font-size: 1.5em;
     text-align: justify;
   }
 
