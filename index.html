@@ -1306,31 +1306,33 @@ To      square something, multiply   it by itself.</code></pre>
     testing whether the number is positive, negative, or zero and taking
     different actions in the different cases according to the rule
   </p>
-  <math display="block">
-    <mrow>
+  <figure>
+    <math>
       <mrow>
-        <mo>|</mo>
-        <mi>x</mi>
-        <mo>|</mo>
+        <mrow>
+          <mo>|</mo>
+          <mi>x</mi>
+          <mo>|</mo>
+        </mrow>
+        <mo>=</mo>
+        <mo>&lbrace;</mo>
+        <mtable>
+          <mtr>
+            <mtd><mi>x</mi></mtd>
+            <mtd><mtext>if&nbsp;</mtext><mi>x</mi><mo>&gt;</mo><mn>0</mn></mtd>
+          </mtr>
+          <mtr>
+            <mtd><mn>0</mn></mtd>
+            <mtd><mtext>if&nbsp;</mtext><mi>x</mi><mo>=</mo><mn>0</mn></mtd>
+          </mtr>
+          <mtr>
+            <mtd><mo>-</mo><mi>x</mi></mtd>
+            <mtd><mtext>if&nbsp;</mtext><mi>x</mi><mo>&lt;</mo><mn>0</mn></mtd>
+          </mtr>
+        </mtable>
       </mrow>
-      <mo>=</mo>
-      <mo>&lbrace;</mo>
-      <mtable>
-        <mtr>
-          <mtd><mi>x</mi></mtd>
-          <mtd><mtext>if&nbsp;</mtext><mi>x</mi><mo>&gt;</mo><mn>0</mn></mtd>
-        </mtr>
-        <mtr>
-          <mtd><mn>0</mn></mtd>
-          <mtd><mtext>if&nbsp;</mtext><mi>x</mi><mo>=</mo><mn>0</mn></mtd>
-        </mtr>
-        <mtr>
-          <mtd><mo>-</mo><mi>x</mi></mtd>
-          <mtd><mtext>if&nbsp;</mtext><mi>x</mi><mo>&lt;</mo><mn>0</mn></mtd>
-        </mtr>
-      </mtable>
-    </mrow>
-  </math>
+    </math>
+  </figure>
   <p>
     This construct is called a <em>case analysis</em>, and there is a special
     form in Lisp for notating such a case analysis. It is called
@@ -1520,7 +1522,25 @@ To      square something, multiply   it by itself.</code></pre>
     Translate the following expression into prefix form
   </p>
   <figure>
-    <img alt="Mathematical expression" src="./img/e1.2.1.gif">
+    <math>
+      <mfrac>
+        <mrow>
+          <mn>5</mn><mo>+</mo><mn>4</mn><mo>+</mo>
+          <mo>&lpar;</mo><mn>2</mn><mo>-</mo>
+            <mo>&lpar;</mo><mn>3</mn><mo>-</mo>
+              <mo>&lpar;</mo><mn>6</mn><mo>+</mo>
+                <mfrac><mn>4</mn><mn>5</mn></mfrac>
+              <mo>&rpar;</mo>
+            <mo>&rpar;</mo>
+          <mo>&rpar;</mo>
+        </mrow>
+        <mrow>
+          <mn>3</mn>
+          <mo>&lpar;</mo><mn>6</mn><mo>-</mo><mn>2</mn><mo>&rpar;</mo>
+          <mo>&lpar;</mo><mn>2</mn><mo>-</mo><mn>7</mn><mo>&rpar;</mo>
+        </mrow>
+      </mfrac>
+    </math>
   </figure>
   <textarea name="e1.2-01"></textarea>
   <output for="e1.2-01" class="block">&ZeroWidthSpace;</output>
@@ -1594,7 +1614,15 @@ test</output>
     define the square-root function as
   </p>
   <figure>
-    <img alt="Definition of square root function" src="./img/s1.1.7.1.gif">
+    <math>
+      <mrow>
+        <msqrt><mi>x</mi></msqrt><mo>=</mo>
+        <mtext>the </mtext><mi>y</mi><mtext> such that </mtext>
+        <mi>y</mi><mo>&GreaterEqual;</mo><mn>0</mn>
+        <mtext> and </mtext>
+        <msup><mi>y</mi><mn>2</mn></msup><mo>=</mo><mi>x</mi>
+      </mrow>
+    </math>
   </figure>
   <p>
     This describes a perfectly legitimate mathematical function. We could use
@@ -1818,8 +1846,13 @@ test</output>
     approximation is given by the value
   </p>
   <figure>
-    <img alt="Formula for improving approximation of cube root"
-      src="./img/e1.8.1.gif">
+    <math>
+      <mfrac>
+        <mrow><mi>x</mi><mo>/</mo><msup><mi>y</mi><mn>2</mn></msup><mo>+</mo>
+          <mn>2</mn><mi>y</mi></mrow>
+        <mrow><mn>3</mn></mrow>
+      </mfrac>
+    </math>
   </figure>
   <p>
     Use this formula to implement a <code>cube-root</code> procedure analogous
