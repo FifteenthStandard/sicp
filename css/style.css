@@ -94,11 +94,12 @@ output.block {
 pre, textarea, table, math {
   max-width: calc(100vw - 2ch);
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 figure {
   max-width: calc(100vw - 2ch);
-  margin: auto;
+  margin: 1em auto 1em auto;
   text-align: center;
 }
 

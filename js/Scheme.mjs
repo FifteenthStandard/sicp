@@ -142,7 +142,6 @@ function evaluateDefine(operands, environment) {
     throw new Error('Error when evaluating \'define\' expression: Must define a name or a procedure');
   }
 };
-// evaluateDefine = trace(evaluateDefine);
 
 function evaluateCond(operands, environment) {
   for (const operand of operands) {
@@ -211,6 +210,8 @@ const GlobalEnvironment = () => ({
   '=': ([first, second]) => first === second,
   '<': ([first, second]) => first < second,
   '>': ([first, second]) => first > second,
+  'inc': ([n]) => n + 1,
+  'dec': ([n]) => n - 1,
 });
 
 export {
