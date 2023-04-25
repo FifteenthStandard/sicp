@@ -763,7 +763,7 @@
     <code>*</code>) to form a compound expression that represents the
     application of the procedure to those numbers. For example:
   </p>
-  <textarea name="1.1.1-02" rows="5">
+  <textarea name="1.1.1-02">
 (+ 137 349)
 (- 1000 334)
 (* 5 99)
@@ -790,7 +790,7 @@
     that it can accommodate procedures that may take an arbitrary number of
     arguments, as in the following examples:
 </p>
-  <textarea name="1.1.1-03" rows="2">
+  <textarea name="1.1.1-03">
 (+ 21 35 12 7)
 (* 25 4 12)</textarea>
   <output for="1.1.1-03" class="block">75
@@ -820,7 +820,7 @@
     >57</output>. We can help ourselves by writing such an expression in the
     form
   </p>
-  <textarea name="1.1.1-06" rows="5">
+  <textarea name="1.1.1-06">
 (+ (* 3
       (+ (* 2 4)
           (+ 3 5)))
@@ -863,7 +863,7 @@
     name <code>size</code> has been associated with the number <code>2</code>,
     we can refer to the value <code>2</code> by name:
   </p>
-  <textarea name="1.1.2-02" data-extends="1.1.2-01" rows="2">
+  <textarea name="1.1.2-02" data-extends="1.1.2-01">
 size
 (* 5 size)</textarea>
   <output for="1.1.2-02" class="block">2
@@ -871,7 +871,7 @@ size
   <p>
     Here are further examples of the use of <code>define</code>:
   </p>
-  <textarea name="1.1.2-03" rows="5">
+  <textarea name="1.1.2-03">
 (define pi 3.14159)
 (define radius 10)
 (* pi (* radius radius))
@@ -944,7 +944,7 @@ circumference
     the case of a deeply nested combination, would otherwise be viewed as a
     rather complicated process. For example, evaluating
   </p>
-  <textarea name="1.1.3-01" rows="2">
+  <textarea name="1.1.3-01">
 (* (+ 2 (* 4 6))
    (+ 3 5 7))</textarea>
   <output for="1.1.3-01" class="block">390</output>
@@ -1092,7 +1092,7 @@ To      square something, multiply   it by itself.</code></pre>
   <p>
     Having defined square, we can now use it:
   </p>
-  <textarea name="1.1.4-02" data-extends="1.1.4-01" rows="3">
+  <textarea name="1.1.4-02" data-extends="1.1.4-01">
 (square 21)
 (square (+ 2 5))
 (square (square 3))</textarea>
@@ -1101,15 +1101,15 @@ To      square something, multiply   it by itself.</code></pre>
 81</output>
   <p>
     We can also use <code>square</code> as a building block in defining other
-    procedures. For example, <code>x<sup>2</sup> + y<sup>2</sup></code> can be
-    expressed as
+    procedures. For example, <math><msup><mi>x</mi><mn>2</mn></msup><mo
+    >+</mo><msup><mi>y</mi><mn>2</mn></msup></math> can be expressed as
   </p>
   <pre><code>(+ (square x) (square y))</code></pre>
   <p>
     We can easily define a procedure <code>sum-of-squares</code> that, given
     any two numbers as arguments, produces the sum of their squares:
   </p>
-  <textarea name="1.1.4-03" data-extends="1.1.4-01" rows="4">
+  <textarea name="1.1.4-03" data-extends="1.1.4-01">
 (define (sum-of-squares x y)
   (+ (square x) (square y)))
 
@@ -1120,7 +1120,7 @@ To      square something, multiply   it by itself.</code></pre>
     Now we can use <code>sum-of-squares</code> as a building block in
     constructing further procedures:
   </p>
-  <textarea name="1.1.4-04" data-extends="1.1.4-01 1.1.4-03" rows="4">
+  <textarea name="1.1.4-04" data-extends="1.1.4-01 1.1.4-03">
 (define (f a)
   (sum-of-squares (+ a 1) (* a 2)))
 
@@ -1340,7 +1340,7 @@ To      square something, multiply   it by itself.</code></pre>
     <code>cond</code> (which stands for “conditional”), and it is used as
     follows:
   </p>
-  <textarea name="1.1.6-01" rows="4">
+  <textarea name="1.1.6-01">
 (define (abs x)
   (cond ((&gt; x 0) x)
         ((= x 0) 0)
@@ -1385,7 +1385,7 @@ To      square something, multiply   it by itself.</code></pre>
   <p>
     Another way to write the absolute-value procedure is
   </p>
-  <textarea name="1.1.6-02" rows="3">
+  <textarea name="1.1.6-02">
 (define (abs x)
   (cond ((&lt; x 0) (- x))
         (else x)))</textarea>
@@ -1403,7 +1403,7 @@ To      square something, multiply   it by itself.</code></pre>
   <p>
     Here is yet another way to write the absolute-value procedure:
   </p>
-  <textarea name="1.1.6-03" rows="4">
+  <textarea name="1.1.6-03">
 (define (abs x)
   (if (&lt; x 0)
       (- x)
@@ -1473,14 +1473,14 @@ To      square something, multiply   it by itself.</code></pre>
     As another example, we can define a predicate to test whether one number is
     greater than or equal to another as
   </p>
-  <textarea name="1.1.6-04" rows="2">
+  <textarea name="1.1.6-04">
 (define (&gt;= x y)
   (or (&gt; x y) (= x y)))</textarea>
   <output for="1.1.6-04" class="block">&gt;=</output>
   <p>
     or alternatively as
   </p>
-  <textarea name="1.1.6-05" rows="2">
+  <textarea name="1.1.6-05">
 (define (&gt;= x y)
   (not (&lt; x y)))</textarea>
   <output for="1.1.6-05" class="block">&gt;=</output>
@@ -1493,7 +1493,7 @@ To      square something, multiply   it by itself.</code></pre>
     interpreter in response to each expression? Assume that the sequence is to
     be evaluated in the order in which it is presented.
   </p>
-  <textarea name="e1.1-01" rows="20">
+  <textarea name="e1.1-01">
 10
 (+ 5 3 4)
 (- 9 1)
@@ -1564,7 +1564,7 @@ To      square something, multiply   it by itself.</code></pre>
     operators are compound expressions. Use this observation to describe the
     behavior of the following procedure:
   </p>
-  <textarea name="e1.4-01" rows="2">
+  <textarea name="e1.4-01">
 (define (a-plus-abs-b a b)
   ((if (&gt; b 0) + -) a b))</textarea>
   <output for="e1.4-01" class="block">a-plus-abs-b</output>
@@ -1577,7 +1577,7 @@ To      square something, multiply   it by itself.</code></pre>
     is faced with is using applicative-order evaluation or normal-order
     evaluation. He defines the following two procedures:
   </p>
-  <textarea name="e1.5-01" rows="6">
+  <textarea name="e1.5-01">
 (define (p) (p))
 
 (define (test x y)
@@ -1700,7 +1700,7 @@ test</output>
     purposes, we are done; if not, we must repeat the process with an improved
     guess. We write this basic strategy as a procedure:
   </p>
-  <textarea name="1.1.7-01" data-extends="1.1.4-01 1.1.6-03" rows="5">
+  <textarea name="1.1.7-01" data-extends="1.1.4-01 1.1.6-03">
 (define (sqrt-iter guess x)
   (if (good-enough? guess x)
       guess
@@ -1711,15 +1711,14 @@ test</output>
     A guess is improved by averaging it with the quotient of the radicand and
     the old guess:
   </p>
-  <textarea name="1.1.7-02" data-extends="1.1.4-01 1.1.6-03 1.1.7-01" rows="2">
+  <textarea name="1.1.7-02" data-extends="1.1.4-01 1.1.6-03 1.1.7-01">
 (define (improve guess x)
   (average guess (/ x guess)))</textarea>
   <output for="1.1.7-02" class="block">improve</output>
   <p>
     where
   </p>
-  <textarea name="1.1.7-03" data-extends="1.1.4-01 1.1.6-03 1.1.7-01 1.1.7-02"
-    rows="2">
+  <textarea name="1.1.7-03" data-extends="1.1.4-01 1.1.6-03 1.1.7-01 1.1.7-02">
 (define (average x y)
   (/ (+ x y) 2))</textarea>
   <output for="1.1.7-03" class="block">average</output>
@@ -1732,7 +1731,7 @@ test</output>
     >22</a></sup>
   </p>
   <textarea name="1.1.7-04"
-    data-extends="1.1.4-01 1.1.6-03 1.1.7-01 1.1.7-02 1.1.7-03" rows="2">
+    data-extends="1.1.4-01 1.1.6-03 1.1.7-01 1.1.7-02 1.1.7-03">
 (define (good-enough? guess x)
   (&lt; (abs (- (square guess) x)) 0.001))</textarea>
   <output for="1.1.7-04" class="block">good-enough?</output>
@@ -1742,8 +1741,7 @@ test</output>
     >23</a></sup>
   </p>
   <textarea name="1.1.7-05"
-    data-extends="1.1.4-01 1.1.6-03 1.1.7-01 1.1.7-02 1.1.7-03 1.1.7-04"
-    rows="2">
+    data-extends="1.1.4-01 1.1.6-03 1.1.7-01 1.1.7-02 1.1.7-03 1.1.7-04">
 (define (sqrt x)
   (sqrt-iter 1.0 x))</textarea>
   <output for="1.1.7-05" class="block">sqrt</output>
@@ -1753,7 +1751,7 @@ test</output>
   </p>
   <textarea name="1.1.7-06"
     data-extends="1.1.4-01 1.1.6-03 1.1.7-01 1.1.7-02 1.1.7-03 1.1.7-04 1.1.7-05"
-    rows="4">
+   >
 (sqrt 9)
 (sqrt (+ 100 37))
 (sqrt (+ (sqrt 2) (sqrt 3)))
@@ -1783,14 +1781,14 @@ test</output>
     of <code>cond</code>?” she asks. Alyssa’s friend Eva Lu Ator claims this
     can indeed be done, and she defines a new version of <code>if</code>:
   </p>
-  <textarea name="e1.6-01" rows="3">
+  <textarea name="e1.6-01">
 (define (new-if predicate then-clause else-clause)
   (cond (predicate then-clause)
         (else else-clause)))</textarea>
   <p>
     Eva demonstrates the program for Alyssa:
   </p>
-  <textarea name="e1.6-02" data-extends="e1.6-01" rows="3">
+  <textarea name="e1.6-02" data-extends="e1.6-01">
 (new-if (= 2 3) 0 5)
 
 (new-if (= 1 1) 0 5)</textarea>
@@ -1801,8 +1799,7 @@ test</output>
     <code>square-root</code> program:
   </p>
   <textarea name="e1.6-03"
-    data-extends="1.1.4-01 1.1.6-03 1.1.7-02 1.1.7-03 1.1.7-04 e1.6-01"
-    rows="5">
+    data-extends="1.1.4-01 1.1.6-03 1.1.7-02 1.1.7-03 1.1.7-04 e1.6-01">
 (define (sqrt-iter guess x)
   (new-if (good-enough? guess x)
           guess
@@ -1830,7 +1827,7 @@ test</output>
     end test. Does this work better for small and large numbers?
   </p>
   <textarea name="e1.7-01"
-    data-extends="1.1.4-01 1.1.6-03 1.1.7-02 1.1.7-03 1.1.7-05" rows="5">
+    data-extends="1.1.4-01 1.1.6-03 1.1.7-02 1.1.7-03 1.1.7-05">
 (define (sqrt-iter guess x)
   ???)
 (define (good-enough? ???)
@@ -2010,8 +2007,7 @@ test</output>
     like to control the use of names. The existing program consists of separate
     procedures:
   </p>
-  <textarea name="1.1.8-01" data-extends="1.1.4-01 1.1.6-03 1.1.7-03"
-    rows="10">
+  <textarea name="1.1.8-01" data-extends="1.1.4-01 1.1.6-03 1.1.7-03">
 (define (sqrt x)
   (sqrt-iter 1.0 x))
 (define (sqrt-iter guess x)
@@ -2045,8 +2041,7 @@ improve</output>
     procedure to have internal definitions that are local to that procedure.
     For example, in the <code>square-root</code> problem we can write
   </p>
-  <textarea name="1.1.8-02" data-extends="1.1.4-01 1.1.6-02 1.1.7-03"
-    rows="10">
+  <textarea name="1.1.8-02" data-extends="1.1.4-01 1.1.6-02 1.1.7-03">
 (define (sqrt x)
   (define (good-enough? guess x)
     (&lt; (abs (- (square guess) x)) 0.001))
@@ -2073,8 +2068,7 @@ improve</output>
     enclosing procedure <code>sqrt</code> is called. This discipline is called
     <em>lexical scoping</em>.<sup id="r1.27s"><a href="#r1.27d">27</a></sup>
   </p>
-  <textarea name="1.1.8-03" data-extends="1.1.4-01 1.1.6-02 1.1.7-03"
-    rows="10">
+  <textarea name="1.1.8-03" data-extends="1.1.4-01 1.1.6-02 1.1.7-03">
 (define (sqrt x)
   (define (good-enough? guess)
     (&lt; (abs (- (square guess) x)) 0.001))
@@ -2326,7 +2320,14 @@ improve</output>
     We have now considered the elements of programming: We have used primitive
     arithmetic operations, we have combined these operations, and we have
     abstracted these composite operations by defining them as compound
-    procedures. But that is not enough to enable us to say that we know how to program. Our situation is analogous to that of someone who has learned the rules for how the pieces move in chess but knows nothing of typical openings, tactics, or strategy. Like the novice chess player, we don’t yet know the common patterns of usage in the domain. We lack the knowledge of which moves are worth making (which procedures are worth defining). We lack the experience to predict the consequences of making a move (executing a procedure).
+    procedures. But that is not enough to enable us to say that we know how to
+    program. Our situation is analogous to that of someone who has learned the
+    rules for how the pieces move in chess but knows nothing of typical
+    openings, tactics, or strategy. Like the novice chess player, we don’t yet
+    know the common patterns of usage in the domain. We lack the knowledge of
+    which moves are worth making (which procedures are worth defining). We lack
+    the experience to predict the consequences of making a move (executing a
+    procedure).
   </p>
   <p>
     The ability to visualize the consequences of the actions under
@@ -2412,7 +2413,7 @@ improve</output>
     <math><mn>1</mn></math>, this observation translates directly into a
     procedure:
   </p>
-  <textarea name="1.2.1-01" rows="4">
+  <textarea name="1.2.1-01">
 (define (factorial n)
   (if (= n 1)
       1
@@ -2440,10 +2441,12 @@ improve</output>
     <math>
       <mtable>
         <mtr>
-          <mtd><mtext>product</mtext><mo>&larr;</mo><mtext>counter</mtext><mo>⋅</mo><mtext>product</mtext></mtd>
+          <mtd><mtext>product</mtext><mo>&larr;</mo><mtext>counter</mtext><mo
+            >⋅</mo><mtext>product</mtext></mtd>
         </mtr>
         <mtr>
-          <mtd><mtext>counter</mtext><mo>&larr;</mo><mtext>counter</mtext><mo>+</mo><mn>1</mn></mtd>
+          <mtd><mtext>counter</mtext><mo>&larr;</mo><mtext>counter</mtext><mo
+            >+</mo><mn>1</mn></mtd>
         </mtr>
       </mtable>
     </math>
@@ -2463,7 +2466,7 @@ improve</output>
     Once again, we can recast our description as a procedure for computing
     factorials:<sup id="r1.29s"><a href="#r1.29d">29</a></sup>
   </p>
-  <textarea name="1.2.1-02" rows="9">
+  <textarea name="1.2.1-02">
 (define (factorial n)
   (fact-iter 1 1 n))
 
@@ -2572,13 +2575,13 @@ fact-iter</output>
     increments its argument by <code>1</code>, and <code>dec</code>, which
     decrements its argument by <code>1</code>.
   </p>
-  <textarea name="e1.9-01" rows="4">
+  <textarea name="e1.9-01">
 (define (+ a b)
   (if (= a 0)
       b
       (inc (+ (dec a) b))))</textarea>
   <output for="e1.9-01" class="block">+</output>
-  <textarea name="e1.9-02" rows="4">
+  <textarea name="e1.9-02">
 (define (+ a b)
   (if (= a 0)
       b
@@ -2590,13 +2593,14 @@ fact-iter</output>
     or recursive?
   </p>
 </section>
+
 <section id="e1.10">
   <h5><a href="#e1.10">Exercise 1.10</a></h5>
   <p>
     The following procedure computes a mathematical function called Ackermann's
     function.
   </p>
-  <textarea name="e1.10-01" rows="6">
+  <textarea name="e1.10-01">
 (define (A x y)
   (cond ((= y 0) 0)
         ((= x 0) (* 2 y))
@@ -2607,7 +2611,7 @@ fact-iter</output>
   <p>
     What are the values of the following expressions?
   </p>
-  <textarea name="e1.10-02" data-extends="e1.10-01" rows="3">
+  <textarea name="e1.10-02" data-extends="e1.10-01">
 (A 1 10)
 (A 2 4)
 (A 3 3)</textarea>
@@ -2615,7 +2619,7 @@ fact-iter</output>
   <p>
     Consider the following procedures, where A is the procedure defined above:
   </p>
-  <textarea name="e1.10-03" data-extends="e1.10-01" rows="4">
+  <textarea name="e1.10-03" data-extends="e1.10-01">
 (define (f n) (A 0 n))
 (define (g n) (A 1 n))
 (define (h n) (A 2 n))
