@@ -3010,6 +3010,158 @@ first-denomination</output>
     >5</mn></msqrt></mfrac></math>.
   </p>
 </section>
+
+<section id="s1.2.3">
+  <h4><a href="#s1.2.3">1.2.3 Orders of Growth</a></h4>
+  <p>
+    The previous examples illustrate that processes can differ considerably in
+    the rates at which they consume computational resources. One convenient way
+    to describe this difference is to use the notion of <em>order of
+    growth</em> to obtain a gross measure of the resources required by a
+    process as the inputs become larger.
+  </p>
+  <p>
+    Let <math><mi>n</mi></math> be a parameter that measures the size of the
+    problem, and let <math><mi>R</mi><mo>&lpar;</mo><mi>n</mi><mo
+    >&rpar;</mo></math> be the amount of resources the process requires for a
+    problem of size <math><mi>n</mi></math>. In our previous examples we took
+    <math><mi>n</mi></math> to be the number for which a given function is to
+    be computed, but there are other possibilities. For instance, if our goal
+    is to compute an approximation to the square root of a number, we might
+    take <math><mi>n</mi></math> to be the number of digits accuracy required.
+    For matrix multiplication we might take <math><mi>n</mi></math> to be the
+    number of rows in the matrices. In general there are a number of properties
+    of the problem with respect to which it will be desirable to analyze a
+    given process. Similarly, <math><mi>R</mi><mo>&lpar;</mo><mi>n</mi><mo
+    >&rpar;</mo></math> might measure the number of internal storage registers
+    used, the number of elementary machine operations performed, and so on. In
+    computers that do only a fixed number of operations at a time, the time
+    required will be proportional to the number of elementary machine
+    operations performed.
+  </p>
+  <p>
+    We say that <math><mi>R</mi><mo>&lpar;</mo><mi>n</mi><mo
+    >&rpar;</mo></math> has order of growth <math><mi>θ</mi><mo>&lpar;</mo><mi
+    >f</mi><mo>&lpar;</mo><mi>n</mi><mo >&rpar;</mo><mo>&rpar;</mo></math>,
+    written <math><mi>R</mi><mo>&lpar;</mo><mi>n</mi><mo>&rpar;</mo><mo
+    >=</mo><mi>θ</mi><mo>&lpar;</mo><mi>f</mi><mo>&lpar;</mo><mi>n</mi><mo
+    >&rpar;</mo><mo>&rpar;</mo></math>(pronounced “theta of <math><mi>f</mi><mo
+    >&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math>”), if there are positive
+    constants <math><msub><mi>k</mi><mn>1</mn></msub></math> and <math><msub
+    ><mi>k</mi><mn>2</mn></msub></math> independent of <math><mi>n</mi></math>
+    such that
+  </p>
+  <figure>
+    <math>
+      <mrow>
+        <msub><mi>k</mi><mn>1</mn></msub><mi>f</mi><mo>&lpar;</mo><mi>n</mi><mo
+        >&rpar;</mo><mo>&LessSlantEqual;</mo><mi>R</mi><mo>&lpar;</mo><mi
+        >n</mi><mo>&rpar;</mo><mo>&LessSlantEqual;</mo><msub><mi>k</mi><mn
+        >2</mn></msub><mi>f</mi><mo>&lpar;</mo><mi>n</mi><mo>&rpar;</mo>
+      </mrow>
+    </math>
+  </figure>
+  <p>
+    for any sufficiently large value of <math><mi>n</mi></math>. (In other
+    words, for large <math><mi>n</mi></math>, the value <math><mi>R</mi><mo
+    >&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math> is sandwiched between <math
+    ><msub><mi>k</mi><mn>1</mn></msub><mi>f</mi><mo>&lpar;</mo><mi>n</mi><mo
+    >&rpar;</mo></math> and <math><msub><mi>k</mi><mn>2</mn></msub><mi
+    >f</mi><mo>&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math>.)
+  </p>
+  <p>
+    For instance, with the linear recursive process for computing factorial
+    described in section <a href="#s1.2.1">1.2.1</a> the number of steps grows
+    proportionally to the input <math><mi>n</mi></math>. Thus, the steps
+    required for this process grows as <math><mi>θ</mi><mo>&lpar;</mo><mi
+    >n</mi><mo>&rpar;</mo></math>. We also saw that the space required grows as
+    <math><mi>θ</mi><mo>&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math>. For the
+    iterative factorial, the number of steps is still <math><mi>θ</mi><mo
+    >&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math> but the space is <math><mi
+    >θ</mi><mo>&lpar;</mo><mn>1</mn><mo>&rpar;</mo></math>—that is,
+    constant.<sup id="r1.36s"><a href="#r1.36d">36</a></sup> The tree-recursive
+    Fibonacci computation requires <math><mi>θ</mi><mo>&lpar;</mo><msup><mi
+    >ϕ</mi><mi>n</mi></msup><mo>&rpar;</mo></math> steps and space <math><mi
+    >θ</mi><mo>&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math>, where <math><mi
+    >ϕ</mi></math> is the golden ratio described in section <a href="#s1.2.2"
+    >1.2.2</a>.
+  </p>
+  <p>
+    Orders of growth provide only a crude description of the behavior of a
+    process. For example, a process requiring <math><msup><mi>n</mi><mn
+    >2</mn></msup></math> steps and a process requiring <math><mn
+    >1000</mn><msup><mi>n</mi><mn>2</mn></msup></math> steps and a process
+    requiring <math><mn>3</mn><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo><mn
+    >10</mn><mi>n</mi><mo>+</mo><mn>17</mn></math> steps all have <math><mi
+    >θ</mi><mo>&lpar;</mo><msup><mi>n</mi><mn>2</mn></msup><mo
+    >&rpar;</mo></math> order of growth. On the other hand, order of growth
+    provides a useful indication of how we may expect the behavior of the
+    process to change as we change the size of the problem. For a <math><mi
+    >θ</mi><mo>&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math> (linear) process,
+    doubling the size will roughly double the amount of resources used. For an
+    exponential process, each increment in problem size will multiply the
+    resource utilization by a constant factor. In the remainder of section
+    <a href="#s1.2">1.2</a> we will examine two algorithms whose order of
+    growth is logarithmic, so that doubling the problem size increases the
+    resource requirement by a constant amount.
+  </p>
+</section>
+
+<section id="e1.14">
+  <h5><a href="#e1.14">Exercise 1.14</a></h5>
+  <p>
+    Draw the tree illustrating the process generated by the
+    <code>count-change</code> procedure of section <a href="#s1.2.2">1.2.2</a>
+    in making change for 11 cents. What are the orders of growth of the space
+    and number of steps used by this process as the amount to be changed
+    increases?
+  </p>
+</section>
+
+<section id="e1.15">
+  <h5><a href="#e1.15">Exercise 1.15</a></h5>
+  <p>
+    The sine of an angle (specified in radians) can be computed by making use
+    of the approximation <math><mtext>sin </mtext><mi>x</mi><mo>≈</mo><mi
+    >x</mi></math>if <math><mi>x</mi></math> is sufficiently small, and the
+    trigonometric identity
+  </p>
+  <figure>
+    <math>
+      <mrow>
+        <mtext>sin </mtext><mi>x</mi><mo>=</mo><mn>3</mn><mtext>sin </mtext>
+        <mfrac><mi>x</mi><mn>3</mn></mfrac><mo>-</mo><mn>4</mn><msup><mtext
+        >sin</mtext><mn>3</mn></msup><mfrac><mi>x</mi><mn>3</mn></mfrac>
+      </mrow>
+    </math>
+  </figure>
+  <p>
+    to reduce the size of the argument of <math><mtext>sin</mtext></math>. (For
+    purposes of this exercise an angle is considered “sufficiently small” if
+    its magnitude is not greater than 0.1 radians.) These ideas are
+    incorporated in the following procedures:
+  </p>
+  <textarea name="e1.15-01">
+(define (cube x) (* x x x))
+(define (p x) (- (* 3 x) (* 4 (cube x))))
+(define (sine angle)
+   (if (not (> (abs angle) 0.1))
+       angle
+       (p (sine (/ angle 3.0)))))
+  </textarea>
+  <output for="e1.15-01" class="block">cube
+p
+sine</output>
+  <ol type="a">
+    <li>How many times is the procedure <code>p</code> applied when
+      <code>(sine&nbsp;12.15)</code> is evaluated?</li>
+    <li>
+      What is the order of growth in space and number of steps (as a function
+      of <math><mi>a</mi></math>) used by the process generated by the
+      <code>sine</code> procedure when <code>(sine&nbsp;a)</code> is evaluated?
+    </li>
+  </ol>
+</section>
 </section>
 </main>
 
