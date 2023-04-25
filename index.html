@@ -2631,6 +2631,381 @@ k</output>
     computes <math><mn>5</mn><msup><mi>n</mi><mn>2</mn></msup></math>.
   </p>
 </section>
+
+<section id="s1.2.2">
+  <h4><a href="#s1.2.2">1.2.2 Tree Recursion</a></h4>
+  <p>
+    Another common pattern of computation is called <em>tree recursion</em>. As
+    an example, consider computing the sequence of Fibonacci numbers, in which
+    each number is the sum of the preceding two:
+  </p>
+  <figure>
+    <math>
+      <mrow>
+        <mn>0</mn><mtext>, </mtext><mn>1</mn><mtext>, </mtext><mn>1</mn>
+        <mtext>, </mtext><mn>2</mn><mtext>, </mtext><mn>3</mn>
+        <mtext>, </mtext><mn>5</mn><mtext>, </mtext><mn>8</mn>
+        <mtext>, </mtext><mn>13</mn><mtext>, </mtext><mn>21</mn>
+        <mtext>, </mtext><mn>…</mn>
+      </mrow>
+    </math>
+  </figure>
+  <p>
+    In general, the Fibonacci numbers can be defined by the rule
+  </p>
+  <figure>
+    <math>
+      <mrow>
+        <mrow>
+          <mtext>Fib</mtext>
+          <mo>&lpar;</mo>
+          <mi>n</mi>
+          <mo>&rpar;</mo>
+        </mrow>
+        <mo>=</mo>
+        <mo>&lbrace;</mo>
+        <mtable>
+          <mtr>
+            <mtd><mn>0</mn></mtd>
+            <mtd><mtext>if&nbsp;</mtext><mi>n</mi><mo>=</mo><mn>0</mn></mtd>
+          </mtr>
+          <mtr>
+            <mtd><mn>1</mn></mtd>
+            <mtd><mtext>if&nbsp;</mtext><mi>n</mi><mo>=</mo><mn>1</mn></mtd>
+          </mtr>
+          <mtr>
+            <mtd>
+              <mtext>Fib</mtext><mo>&lpar;</mo><mi>n</mi><mo>-</mo><mn>1</mn>
+              <mo>&rpar;</mo><mo>+</mo><mtext>Fib</mtext><mo>&lpar;</mo>
+              <mi>n</mi><mo>-</mo><mn>2</mn><mo>&rpar;</mo>
+            </mtd>
+            <mtd><mtext>otherwise</mtext></mtd>
+          </mtr>
+        </mtable>
+      </mrow>
+    </math>
+  </figure>
+  <p>
+    We can immediately translate this definition into a recursive procedure for
+    computing Fibonacci numbers:
+  </p>
+  <textarea name="1.2.2-01">
+(define (fib n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        (else (+ (fib (- n 1))
+                 (fib (- n 2))))))</textarea>
+  <output for="1.2.2-01" class="block">fib</output>
+  <figure id="f1.5">
+    <img alt="Figure 1.5: A tree-recursive process" src="./img/f1.5.gif">
+    <figcaption>
+      Figure 1.5: The tree-recursive process generated in computing
+      <code>(fib&nbsp;5)</code>.
+    </figcaption>
+  </figure>
+  <p>
+    Consider the pattern of this computation. To compute <code>(fib 5)</code>,
+    we compute <code>(fib 4)</code> and <code>(fib 3)</code>. To compute
+    <code>(fib 4)</code>, we compute <code>(fib 3)</code> and <code>(fib
+    2)</code>. In general, the evolved process looks like a tree, as shown in
+    figure <a href="#f1.5">1.5</a>. Notice that the branches split into two at
+    each level (except at the bottom); this reflects the fact that the
+    <code>fib</code> procedure calls itself twice each time it is invoked.
+  </p>
+  <p>
+    This procedure is instructive as a prototypical tree recursion, but it is a
+    terrible way to compute Fibonacci numbers because it does so much redundant
+    computation. Notice in figure <a href="#f1.5">1.5</a> that the entire
+    computation of <code>(fib 3)</code>—almost half the work—is duplicated. In
+    fact, it is not hard to show that the number of times the procedure will
+    compute <code>(fib 1)</code> or <code>(fib 0)</code> (the number of leaves
+    in the above tree, in general) is precisely <math><mtext>Fib</mtext><mo
+    >&lpar;</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo>&rpar;</mo></math>. To get an
+    idea of how bad this is, one can show that the value of <math><mtext
+    >Fib</mtext><mo>&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math> grows
+    exponentially with <math><mi>n</mi></math>. More precisely (see exercise
+    <a href="#e1.13">1.13</a>), <math><mtext>Fib</mtext><mo>&lpar;</mo><mi
+    >n</mi><mo>&rpar;</mo></math> is the closest integer to <math><msup><mi
+    >ϕ</mi><mn>5</mn></msup><mo>/</mo><msqrt><mn>5</mn></msqrt></math>, where
+  </p>
+  <figure>
+    <math>
+      <mrow>
+        <mi>ϕ</mi><mo>=</mo>
+        <mfrac>
+          <mrow><mn>1</mn><mo>+</mo><msqrt><mn>5</mn></msqrt></mrow>
+          <mn>2</mn>
+        </mfrac>
+        <mo>≈</mo><mn>1.6180</mn>
+      </mrow>
+    </math>
+  </figure>
+  <p>
+    is the <em>golden ratio</em>, which satisfies the equation
+  </p>
+  <figure>
+    <math>
+      <mrow>
+        <msup><mi>ϕ</mi><mn>2</mn></msup><mo>=</mo>
+        <mi>ϕ</mi><mo>+</mo><mn>1</mn>
+      </mrow>
+    </math>
+  </figure>
+  <p>
+    Thus, the process uses a number of steps that grows exponentially with the
+    input. On the other hand, the space required grows only linearly with the
+    input, because we need keep track only of which nodes are above us in the
+    tree at any point in the computation. In general, the number of steps
+    required by a tree-recursive process will be proportional to the number of
+    nodes in the tree, while the space required will be proportional to the
+    maximum depth of the tree.
+  </p>
+  <p>
+    We can also formulate an iterative process for computing the Fibonacci
+    numbers. The idea is to use a pair of integers <math><mi>a</mi></math> and
+    <math><mi>b</mi></math>, initialized to <math><mtext>Fib</mtext><mo
+    >&lpar;</mo><mn>1</mn><mo>&rpar;</mo><mo>=</mo><mn>1</mn></math> and
+    <math><mtext>Fib</mtext><mo>&lpar;</mo><mn>0</mn><mo>&rpar;</mo><mo
+    >=</mo><mn>0</mn></math>, and to repeatedly apply the simultaneous
+    transformations
+  </p>
+  <figure>
+    <math>
+      <mtable>
+        <mtr>
+          <mtd><mi>a</mi><mo>&larr;</mo><mi>a</mi><mo>+</mo><mi>b</mi></mtd>
+        </mtr>
+        <mtr>
+          <mtd><mi>b</mi><mo>&larr;</mo><mi>a</mi></mtd>
+        </mtr>
+      </mtable>
+    </math>
+  </figure>
+  <p>
+    It is not hard to show that, after applying this transformation <math><mi
+    >n</mi></math> times, <math><mi>a</mi></math> and <math><mi>b</mi></math>
+    will be equal, respectively, to <math><mtext>Fib</mtext><mo>&lpar;</mo><mi
+    >n</mi><mo>+</mo><mn>1</mn><mo>&rpar;</mo></math> and <math><mtext
+    >Fib</mtext><mo>&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math>. Thus, we can
+    compute Fibonacci numbers iteratively using the procedure
+  </p>
+  <textarea name="1.2.2-02">
+(define (fib n)
+  (fib-iter 1 0 n))
+
+(define (fib-iter a b count)
+  (if (= count 0)
+      b
+      (fib-iter (+ a b) a (- count 1))))</textarea>
+  <output for="1.2.2-02" class="block">fib
+fib-iter</output>
+  <p>
+    This second method for computing <math><mtext>Fib</mtext><mo>&lpar;</mo><mi
+    >n</mi><mo>&rpar;</mo></math> is a linear iteration. The difference in
+    number of steps required by the two methods—one linear in
+    <math><mi>n</mi></math>, one growing as fast as <math><mtext
+    >Fib</mtext><mo>&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math> itself—is
+    enormous, even for small inputs.
+  </p>
+  <p>
+    One should not conclude from this that tree-recursive processes are
+    useless. When we consider processes that operate on hierarchically
+    structured data rather than numbers, we will find that tree recursion is a
+    natural and powerful tool.<sup id="r1.32s"><a href="#r1.32d">32</a></sup>
+    But even in numerical operations, tree-recursive processes can be useful in
+    helping us to understand and design programs. For instance, although the
+    first <code>fib</code> procedure is much less efficient than the second
+    one, it is more straightforward, being little more than a translation into
+    Lisp of the definition of the Fibonacci sequence. To formulate the
+    iterative algorithm required noticing that the computation could be recast
+    as an iteration with three state variables.
+  </p>
+</section>
+
+<section id="ex1.1">
+  <h5><a href="#ex1.1">Example: Counting change</a></h5>
+  <p>
+    It takes only a bit of cleverness to come up with the iterative Fibonacci
+    algorithm. In contrast, consider the following problem: How many different
+    ways can we make change of $1.00, given half-dollars, quarters, dimes,
+    nickels, and pennies? More generally, can we write a procedure to compute
+    the number of ways to change any given amount of money?
+  </p>
+  <p>
+    This problem has a simple solution as a recursive procedure. Suppose we
+    think of the types of coins available as arranged in some order. Then the
+    following relation holds:
+  </p>
+  <p>
+    The number of ways to change amount <math><mi>a</mi></math> using
+    <math><mi>n</mi></math> kinds of coins equals
+  </p>
+  <ul>
+    <li>
+      the number of ways to change amount a using all but the first kind of
+      coin, plus
+    </li>
+    <li>
+      the number of ways to change amount <math><mi>a</mi><mo>-</mo><mi
+      >d</mi></math> using all <math><mi>n</mi></math> kinds of coins, where
+      <math><mi>d</mi></math> is the denomination of the first kind of coin.
+    </li>
+  </ul>
+  <p>
+    To see why this is true, observe that the ways to make change can be
+    divided into two groups: those that do not use any of the first kind of
+    coin, and those that do. Therefore, the total number of ways to make change
+    for some amount is equal to the number of ways to make change for the
+    amount without using any of the first kind of coin, plus the number of ways
+    to make change assuming that we do use the first kind of coin. But the
+    latter number is equal to the number of ways to make change for the amount
+    that remains after using a coin of the first kind.
+  </p>
+  <p>
+    Thus, we can recursively reduce the problem of changing a given amount to
+    the problem of changing smaller amounts using fewer kinds of coins.
+    Consider this reduction rule carefully, and convince yourself that we can
+    use it to describe an algorithm if we specify the following degenerate
+    cases:<sup id="r1.33s"><a href="#r1.33d">33</a></sup>
+  </p>
+  <ul>
+    <li>
+      If <math><mi>a</mi></math> is exactly <math><mn>0</mn></math>, we should
+      count that as <math><mn>1</mn></math> way to make change.
+    </li>
+    <li>
+      If <math><mi>a</mi></math> is less than <math><mn>0</mn></math>, we
+      should count that as <math><mn>0</mn></math> ways to make change.
+    </li>
+    <li>
+      If <math><mi>n</mi></math> is <math><mn>0</mn></math>, we should count
+      that as <math><mn>0</mn></math> ways to make change.
+    </li>
+  </ul>
+  <p>
+    We can easily translate this description into a recursive procedure:
+  </p>
+  <textarea name="ex1.1-01">
+(define (count-change amount)
+  (cc amount 5))
+(define (cc amount kinds-of-coins)
+  (cond ((= amount 0) 1)
+        ((or (&lt; amount 0) (= kinds-of-coins 0)) 0)
+        (else (+ (cc amount
+                     (- kinds-of-coins 1))
+                 (cc (- amount
+                        (first-denomination kinds-of-coins))
+                     kinds-of-coins)))))
+(define (first-denomination kinds-of-coins)
+  (cond ((= kinds-of-coins 1) 1)
+        ((= kinds-of-coins 2) 5)
+        ((= kinds-of-coins 3) 10)
+        ((= kinds-of-coins 4) 25)
+        ((= kinds-of-coins 5) 50)))</textarea>
+  <output for="ex1.1-01" class="block">count-change
+cc
+first-denomination</output>
+  <p>
+    (The <code>first-denomination</code> procedure takes as input the number of
+    kinds of coins available and returns the denomination of the first kind.
+    Here we are thinking of the coins as arranged in order from largest to
+    smallest, but any order would do as well.) We can now answer our original
+    question about changing a dollar:
+  </p>
+  <textarea name="ex1.1-02" data-extends="ex1.1-01">
+(count-change 100)</textarea>
+  <output for="ex1.1-02" class="block">292</output>
+  <p>
+    <code>Count-change</code> generates a tree-recursive process with
+    redundancies similar to those in our first implementation of
+    <code>fib</code>. (It will take quite a while for that 292 to be computed.)
+    On the other hand, it is not obvious how to design a better algorithm for
+    computing the result, and we leave this problem as a challenge. The
+    observation that a tree-recursive process may be highly inefficient but
+    often easy to specify and understand has led people to propose that one
+    could get the best of both worlds by designing a “smart compiler” that
+    could transform tree-recursive procedures into more efficient procedures
+    that compute the same result.<sup id="r1.34s"><a href="#r1.34d"
+    >34</a></sup>
+  </p>
+</section>
+
+<section id="e1.11">
+  <h5><a href="#e1.11">Exercise 1.11</a></h5>
+  <p>
+    A function <math><mi>f</mi></math> is defined by the rule that <math><mi
+    >f</mi><mo>&lpar;</mo><mi>n</mi><mo>&rpar;</mo><mo>=</mo><mi>n</mi></math>
+    if <math><mi>n</mi><mo>&lt;</mo><mn>3</mn></math> and <math><mi>f</mi><mo
+    >&lpar;</mo><mi>n</mi><mo>&rpar;</mo><mo>=</mo><mi>f</mi><mo>&lpar;</mo><mi
+    >n</mi><mo>-</mo><mn>1</mn><mo>&rpar;</mo><mo>+</mo><mn>2</mn><mi>f</mi><mo
+    >&lpar;</mo><mi>n</mi><mo>-</mo><mn>2</mn><mo>&rpar;</mo><mo>+</mo><mn
+    >3</mn><mi>f</mi><mo>&lpar;</mo><mi>n</mi><mo>-</mo><mn>3</mn><mo
+    >&rpar;</mo></math> if <math><mi>n</mi><mo>&gt;</mo><mn>3</mn></math>.
+    Write a procedure that computes <math><mi>f</mi></math> by means of a
+    recursive process. Write a procedure that computes <math><mi>f</mi></math>
+    by means of an iterative process.
+  </p>
+  <textarea name="e1.11-01"></textarea>
+  <output for="e1.11-01" class="block">&nbsp;</output>
+</section>
+
+<section id="e1.12">
+  <h5><a href="#e1.2">Exercise 1.12</a></h5>
+  <p>
+    The following pattern of numbers is called <em>Pascal's triangle</em>.
+  </p>
+  <figure>
+    <math>
+      <mtable>
+        <mtr>
+          <mtd><mn>1</mn></mtd>
+        </mtr>
+        <mtr>
+          <mtd><mn>1</mn>&emsp;<mn>1</mn></mtd>
+        </mtr>
+        <mtr>
+          <mtd><mn>1</mn>&emsp;<mn>2</mn>&emsp;<mn>1</mn></mtd>
+        </mtr>
+        <mtr>
+          <mtd><mn>1</mn>&emsp;<mn>3</mn>&emsp;<mn>3</mn>&emsp;<mn>1</mn></mtd>
+        </mtr>
+        <mtr>
+          <mtd><mn>1</mn>&emsp;<mn>4</mn>&emsp;<mn>6</mn>&emsp;<mn
+          >4</mn>&emsp;<mn>1</mn></mtd>
+        </mtr>
+        <mtr>
+          <mtd>…</mtd>
+        </mtr>
+      </mtable>
+    </math>
+  </figure>
+  <p>
+    The numbers at the edge of the triangle are all 1, and each number inside
+    the triangle is the sum of the two numbers above it.<sup id="r1.35s"><a
+    href="#r1.35d">35</a></sup> Write a procedure that computes elements of
+    Pascal's triangle by means of a recursive process.
+  </p>
+  <textarea name="e1.12-01"></textarea>
+  <output for="e1.12-01" class="block">&nbsp;</output>
+</section>
+
+<section id="e1.13">
+  <h5><a href="#e1.13">Exercise 1.13</a></h5>
+  <p>
+    Prove that <math><mtext>Fib</mtext><mo>&lpar;</mo><mi>n</mi><mo
+    >&rpar;</mo></math> is the closest integer to <math><msup><mi>ϕ</mi><mi
+    >n</mi></msup><mo>/</mo><msqrt><mn>5</mn></msqrt></math>, where <math><mi
+    >ϕ</mi><mo>=</mo><mfrac><mrow><mn>1</mn><mo>+</mo><msqrt><mn
+    >5</mn></msqrt></mrow><mn>2</mn></mfrac></math>. Hint: Let <math><mi
+    >ψ</mi><mo>=</mo><mfrac><mrow><mn>1</mn><mo>-</mo><msqrt><mn
+    >5</mn></msqrt></mrow><mn>2</mn></mfrac></math>. Use induction and the
+    definition of the Fibonnaci numbers (see section <a href="#s1.2.2"
+    >1.2.2</a>) to prove that <math><mtext>Fib</mtext><mo>&lpar;</mo><mi
+    >n</mi><mo>&rpar;</mo><mo>=</mo><mfrac><mrow><msup><mi>ϕ</mi><mi
+    >n</mi></msup><mo>-</mo><msup><mi>ψ</mi><mi>n</mi></msup></mrow><msqrt><mn
+    >5</mn></msqrt></mfrac></math>.
+  </p>
+</section>
 </section>
 </main>
 
