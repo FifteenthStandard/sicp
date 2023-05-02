@@ -1310,13 +1310,7 @@ To      square something, multiply   it by itself.</code></pre>
   <figure>
     <math>
       <mrow>
-        <mrow>
-          <mo>|</mo>
-          <mi>x</mi>
-          <mo>|</mo>
-        </mrow>
-        <mo>=</mo>
-        <mo>&lbrace;</mo>
+        <mrow><mo>|</mo><mi>x</mi><mo>|</mo></mrow><mo>=</mo><mo>&lbrace;</mo>
         <mtable>
           <mtr>
             <mtd><mi>x</mi></mtd>
@@ -3161,6 +3155,301 @@ sine</output>
       <code>sine</code> procedure when <code>(sine&nbsp;a)</code> is evaluated?
     </li>
   </ol>
+</section>
+
+<section id="s1.2.4">
+  <h4><a href="s1.2.4">1.2.4 Exponentiation</a></h4>
+  <p>
+    Consider the problem of computing the exponential of a given number. We
+    would like a procedure that takes as arguments a base <math><mi
+    >b</mi></math> and a positive integer exponent <math><mi>n</mi></math> and
+    computes <math><msup><mi>b</mi><mi>n</mi></msup></math>. One way to do this
+    is via the recursive definition
+  </p>
+  <figure>
+    <math>
+      <mtable>
+        <mtr>
+          <mtd><msup><mi>b</mi><mi>n</mi></msup><mo>=</mo><mi>b</mi><mo
+            >⋅</mo><msup><mi>b</mi><mrow><mi>n</mi><mo>-</mo><mn
+            >1</mn></mrow></msup></mtd>
+        </mtr>
+        <mtr>
+          <mtd><msup><mi>b</mi><mn>0</mn></msup><mo>=</mo><mn>1</mn></mtd>
+        </mtr>
+      </mtable>
+    </math>
+  </figure>
+  <p>
+    which translates readily into the procedure
+  </p>
+  <textarea name="1.2.4-01">
+(define (expt b n)
+  (if (= n 0)
+      1
+      (* b (expt b (- n 1)))))</textarea>
+  <output for="1.2.4-01" class="block">expt</output>
+  <p>
+    This is a linear recursive process, which requires <math><mi>θ</mi><mo
+    >&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math> steps and <math><mi>θ</mi><mo
+    >&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math> space. Just as with factorial,
+    we can readily formulate an equivalent linear iteration:
+  </p>
+  <textarea name="1.2.4-02">
+(define (expt b n)
+  (expt-iter b n 1))
+
+(define (expt-iter b counter product)
+  (if (= counter 0)
+      product
+      (expt-iter b
+                 (- counter 1)
+                 (* b product))))
+</textarea>
+  <output for="1.2.4-02" class="block">expt
+expt-iter</output>
+  <p>
+    This version requires <math><mi>θ</mi><mo>&lpar;</mo><mi>n</mi><mo
+    >&rpar;</mo></math> steps and <math><mi>θ</mi><mo>&lpar;</mo><mn>1</mn><mo
+    >&rpar;</mo></math> space.
+  </p>
+  <p>
+    We can compute exponentials in fewer steps by using successive squaring.
+    For instance, rather than computing <math><msup><mi>b</mi><mn
+    >8</mn></msup></math> as
+  </p>
+  <figure>
+    <math>
+      <mrow>
+        <mi>b</mi><mo>⋅</mo><mo>&lpar;</mo><mi>b</mi><mo>⋅</mo><mo
+        >&lpar;</mo><mi>b</mi><mo>⋅</mo><mo>&lpar;</mo><mi>b</mi><mo>⋅</mo><mo
+        >&lpar;</mo><mi>b</mi><mo>⋅</mo><mo>&lpar;</mo><mi>b</mi><mo>⋅</mo><mo
+        >&lpar;</mo><mi>b</mi><mo>⋅</mo><mi>b</mi><mo>&rpar;</mo><mo
+        >&rpar;</mo><mo>&rpar;</mo><mo>&rpar;</mo><mo>&rpar;</mo><mo
+        >&rpar;</mo>
+      </mrow>
+    </math>
+  </figure>
+  <p>
+    we can compute it using three multiplications:
+  </p>
+  <figure>
+    <math>
+      <mtable>
+        <mtr>
+          <mtd><msup><mi>b</mi><mn>2</mn></msup><mo>=</mo><mi>b</mi><mo
+            >⋅</mo><mi>b</mi></mtd>
+        </mtr>
+        <mtr>
+          <mtd><msup><mi>b</mi><mn>4</mn></msup><mo>=</mo><msup><mi>b</mi><mn
+            >2</mn></msup><mo>⋅</mo><msup><mi>b</mi><mn>2</mn></msup></mtd>
+        </mtr>
+        <mtr>
+          <mtd><msup><mi>b</mi><mn>8</mn></msup><mo>=</mo><msup><mi>b</mi><mn
+            >4</mn></msup><mo>⋅</mo><msup><mi>b</mi><mn>4</mn></msup></mtd>
+        </mtr>
+      </mtable>
+    </math>
+  </figure>
+  <p>
+    This method works fine for exponents that are powers of 2. We can also take
+    advantage of successive squaring in computing exponentials in general if we
+    use the rule
+  </p>
+  <figure>
+    <math>
+      <mrow>
+        <msup><mi>b</mi><mi>n</mi></msup><mo>=</mo><mo>&lbrace;</mo>
+        <mtable>
+          <mtr>
+            <mtd><msup><mrow><mo>&lpar;</mo><msup><mi>b</mi><mrow><mo
+              >&lpar;</mo><mi>n</mi><mo>/</mo><mn>2</mn><mo
+              >&rpar;</mo></mrow></msup><mo>&rpar;</mo></mrow><mn
+              >2</mn></msup></mtd>
+            <mtd><mtext>if </mtext><mi>n</mi><mtext> is even</mtext></mtd>
+          </mtr>
+          <mtr>
+            <mtd><mi>b</mi><mo>⋅</mo><msup><mi>b</mi><mrow><mi>n</mi><mo
+              >-</mo><mn>1</mn></mrow></msup></mtd>
+            <mtd><mtext>if </mtext><mi>n</mi><mtext> is odd</mtext></mtd>
+          </mtr>
+        </mtable>
+      </mrow>
+    </math>
+  </figure>
+  <p>
+    We can express this method as a procedure:
+  </p>
+  <textarea name="1.2.4-03" data-extends="1.1.4-01 1.2.4-04">
+(define (fast-expt b n)
+  (cond ((= n 0) 1)
+        ((even? n) (square (fast-expt b (/ n 2))))
+        (else (* b (fast-expt b (- n 1))))))</textarea>
+  <output for="1.2.4-03" class="block">fast-expt</output>
+  <p>
+    where the predicate to test whether an integer is even is defined in terms
+    of the primitive procedure <code>remainder</code> by
+  </p>
+  <textarea name="1.2.4-04">
+(define (even? n)
+  (= (remainder n 2) 0))</textarea>
+  <output for="1.2.4-04" class="block">even?</output>
+  <p>
+    The process evolved by <code>fast-expt</code> grows logarithmically with
+    <math><mi>n</mi></math> in both space and number of steps. To see this,
+    observe that computing <math><msup><mi>b</mi><mrow><mn>2</mn><mi
+    >n</mi></mrow></msup></math> using <code>fast-expt</code> requires only one
+    more multiplication than computing <math><msup><mi>b</mi><mi
+    >n</mi></msup></math>. The size of the exponent we can compute therefore
+    doubles (approximately) with every new multiplication we are allowed. Thus,
+    the number of multiplications required for an exponent of <math><mi
+    >n</mi></math> grows about as fast as the logarithm of <math><mi
+    >n</mi></math> to the base 2. The process has <math><mi>θ</mi><mo
+    >&lpar;</mo><mtext>log </mtext><mi>n</mi><mo>&rpar;</mo></math> growth.<sup
+    id="r1.37s"><a href="#r1.37d">37</a></sup>
+  </p>
+  <p>
+    The difference between <math><mi>θ</mi><mo>&lpar;</mo><mtext
+    >log </mtext><mi>n</mi><mo>&rpar;</mo></math> growth and <math><mi
+    >θ</mi><mo>&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math> growth becomes
+    striking as <math><mi>n</mi></math> becomes large. For example, <code
+    >fast-expt</code> for <math><mi>n</mi><mo>=</mo><mn>1000</mn></math>
+    requires only 14 multiplications.<sup id="r1.38s"><a href="#r1.38d"
+    >38</a></sup> It is also possible to use the idea of successive squaring to
+    devise an iterative algorithm that computes exponentials with a logarithmic
+    number of steps (see exercise <a href="e1.16">1.16</a>), although, as is
+    often the case with iterative algorithms, this is not written down so
+    straightforwardly as the recursive algorithm.<sup id="r1.39s"><a
+    href="#r1.39d">39</a></sup>
+  </p>
+</section>
+
+<section id="e1.16">
+  <h5><a href="#e1.16">Exercise 1.16</a></h5>
+  <p>
+    Design a procedure that evolves an iterative exponentiation process that
+    uses successive squaring and uses a logarithmic number of steps, as does
+    <code>fast-expt</code>. (Hint: Using the observation that <math><msup><mrow
+    ><mo>&lpar;</mo><msup><mi>b</mi><mrow><mi>n</mi><mo>/</mo><mn
+    >2</mn></mrow></msup><mo>&rpar;</mo></mrow><mn>2</mn></msup><mo>=</mo><msup
+    ><mrow><mo>&lpar;</mo><msup><mi>b</mi><mn>2</mn></msup><mo
+    >&rpar;</mo></mrow><mrow><mi>n</mi><mo>/</mo><mn
+    >2</mn></mrow></msup></math>, keep, along with the exponent <math><mi
+    >n</mi></math> and the base <math><mi>b</mi></math>, an additional state
+    variable <math><mi>a</mi></math>, and define the state transformation in
+    such a way that the product <math><mi>a</mi><mo>⋅</mo><msup><mi>b</mi><mi
+    >n</mi></msup></math> is unchanged from state to state. At the beginning of
+    the process <math><mi>a</mi></math> is taken to be 1, and the answer is
+    given by the value of <math><mi>a</mi></math> at the end of the process. In
+    general, the technique of defining an invariant quantity that remains
+    unchanged from state to state is a powerful way to think about the design
+    of iterative algorithms.)
+  </p>
+  <textarea name="e1.16-01"></textarea>
+  <output for="e1.16-01" class="block">&nbsp;</output>
+</section>
+
+<section id="e1.17">
+  <h5><a href="#e1.17">Exercise 1.17</a></h5>
+  <p>
+    The exponentiation algorithms in this section are based on performing
+    exponentiation by means of repeated multiplication. In a similar way, one
+    can perform integer multiplication by means of repeated addition. The
+    following multiplication procedure (in which it is assumed that our
+    language can only add, not multiply) is analogous to the <code>expt</code>
+    procedure:
+  </p>
+  <textarea name="e1.17-01">
+(define (* a b)
+  (if (= b 0)
+      0
+      (+ a (* a (- b 1)))))</textarea>
+  <output for="e1.17-02" class="block">*</output>
+  <p>
+    This algorithm takes a number of steps that is linear in <code>b</code>.
+    Now suppose we include, together with addition, operations
+    <code>double</code>, which doubles an integer, and <code>halve</code>,
+    which divides an (even) integer by 2. Using these, design a multiplication
+    procedure analogous to <code>fast-expt</code> that uses a logarithmic
+    number of steps.
+  </p>
+  <textarea name="e1.17-02">
+(define (double x) (+ x x))
+(define (halve x) (/ x 2))</textarea>
+  <output for="1.17-02" class="block">double
+halve</output>
+</section>
+
+<section id="e1.18">
+  <h5><a href="#e.18">Exercise 1.18</a></h5>
+  <p>
+    Using the results of exercises <a href="#e1.16">1.16</a> and <a
+    href="#e1.17">1.17</a>, devise a procedure that generates an iterative
+    process for multiplying two integers in terms of adding, doubling, and
+    halving and uses a logarithmic number of steps.<sup id="r1.40s"><a
+    href="#r1.40d">40</a></sup>
+  </p>
+  <textarea name="e1.18-01" data-extends="e1.17-02"></textarea>
+  <output for="e1.18-01" class="block">&nbsp;</output>
+</section>
+
+<section id="e1.19">
+  <h5><a href="#e1.19">Exercise 1.19</a></h5>
+  <p>
+    There is a clever algorithm for computing the Fibonacci numbers in a
+    logarithmic number of steps. Recall the transformation of the state
+    variables <math><mi>a</mi></math> and <math><mi>b</mi></math> in the <code
+    >fib-iter</code> process of section <a href="#s1.2.2">1.2.2</a>: <math><mi
+    >a</mi><mo>&larr;</mo><mi>a</mi><mo>+</mo><mi>b</mi></math> and <math><mi
+    >b</mi><mo>&larr;</mo><mi>a</mi></math>. Call this transformation <math><mi
+    >T</mi></math>, and observe that applying <math><mi>T</mi></math> over and
+    over again <math><mi>n</mi></math> times, starting with 1 and 0, produces
+    the pair <math><mtext>Fib</mtext><mo>&lpar;</mo><mi>n</mi><mo>+</mo><mn
+    >1</mn><mo>&rpar;</mo></math> and <math><mtext>Fib</mtext><mo
+    >&lpar;</mo><mi>n</mi><mo>&rpar;</mo></math>. In other words, the Fibonacci
+    numbers are produced by applying <math><msup><mi>T</mi><mi
+    >n</mi></msup></math>, the <math><mi>n</mi></math>th power of the
+    transformation <math><mi>T</mi></math>, starting with the pair (1,0). Now
+    consider <math><mi>T</mi></math> to be the special case of <math><mi
+    >p</mi><mo>=</mo><mn>0</mn></math> and <math><mi>q</mi><mo>=</mo><mn
+    >1</mn></math> in a family of transformations <math><msub><mi>T</mi><mrow
+    ><mi>p</mi><mi>q</mi></mrow></msub></math>, where <math><msub><mi
+    >T</mi><mrow><mi>p</mi><mi>q</mi></mrow></msub></math> transforms the pair
+    <math><mo>&lpar;</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>&rpar;</mo></math>
+    according to <math><mi>a</mi><mo>&larr;</mo><mi>b</mi><mi>q</mi><mo
+    >+</mo><mi>a</mi><mi>q</mi><mo>+</mo><mi>a</mi><mi>p</mi></math> and <math
+    ><mi>b</mi><mo>&larr;</mo><mi>b</mi><mi>p</mi><mo>+</mo><mi>a</mi><mi
+    >q</mi></math>. Show that if we apply such a transformation <math><msub><mi
+    >T</mi><mrow><mi>p</mi><mi>q</mi></mrow></msub></math> twice, the effect is
+    the same as using a single transformation <math><msub><mi>T</mi><mrow><mi
+    >p</mi><mo>′</mo><mi>q</mi><mo>′</mo></mrow></msub></math> of the same
+    form, and compute <math><mi>p</mi><mo>′</mo></math> and <math><mi>q</mi><mo
+    >′</mo></math> in terms of <math><mi>p</mi></math> and <math><mi
+    >q</mi></math>. This gives us an explicit way to square these
+    transformations, and thus we can compute <math><msup><mi>T</mi><mi
+    >n</mi></msup></math> using successive squaring, as in the <code
+    >fast-expt</code> procedure. Put this all together to complete the
+    following procedure, which runs in a logarithmic number of steps:<sup
+    id="r1.41s"><a href="#r1.41d">41</a></sup>
+  </p>
+  <textarea name="e1.19-01" data-extends="1.2.4-04">
+(define (fib n)
+  (fib-iter 1 0 0 1 n))
+(define (fib-iter a b p q count)
+  (cond ((= count 0) b)
+        ((even? count)
+         (fib-iter a
+                   b
+                   &lt;??&gt;      ; compute p'
+                   &lt;??&gt;      ; compute q'
+                   (/ count 2)))
+        (else (fib-iter (+ (* b q) (* a q) (* a p))
+                        (+ (* b p) (* a q))
+                        p
+                        q
+                        (- count 1)))))</textarea>
+  <output for="e1.19-01" class="block">fib
+fib-iter</output>
 </section>
 </section>
 </main>

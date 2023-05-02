@@ -5,7 +5,7 @@ function parse(source) {
     if (end) return expressions;
     if (error) throw new Error(error);
     if (endOfList) throw new Error("Error while parsing expression: Unexpected end of list marker ')'");
-    expressions.push(result);
+    if (result) expressions.push(result);
     source = continueFrom;
   }
 };
@@ -13,9 +13,19 @@ function parse(source) {
 function parseNext(source) {
   source = source.trimStart();
   if (!source) return { end: true };
+  if (source[0] === ';') return parseComment(source);
   if (source[0] === '(') return parseList(source);
   if (source[0] === ')') return { endOfList: true, continueFrom: source.substring(1) };
   return parseAtom(source);
+};
+
+function parseComment(source) {
+  if (source[0] !== ';') return { error: "Internal error: Expected start of comment marker ';'" };
+  source = source.substring(2); // skip '; '
+  let endOfLine = source.indexOf('\n');
+  if (endOfLine === -1) endOfLine = source.length;
+  const comment = source.substring(0, endOfLine);
+  return { comment, continueFrom: source.substring(endOfLine) };
 };
 
 function parseList(source) {
@@ -27,7 +37,7 @@ function parseList(source) {
     if (error) return { error: `Error while parsing list: ${error}` };
     if (end) return { error: "Error while parsing list: Unexpected end of input" };
     if (endOfList) return { result: elems, continueFrom };
-    elems.push(result);
+    if (result) elems.push(result);
     source = continueFrom;
   }
 };
@@ -212,6 +222,7 @@ const GlobalEnvironment = () => ({
   '>': ([first, second]) => first > second,
   'inc': ([n]) => n + 1,
   'dec': ([n]) => n - 1,
+  'remainder': ([dividend, divisor]) => dividend % divisor,
 });
 
 export {
