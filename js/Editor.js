@@ -6,9 +6,18 @@ window.addEventListener('load', function () {
     editor.rows = editor.value.split('\n').length;
     const name = editor.name;
     const output = document.querySelector(`output[for="${name}"]`);
-    const extendsNamesStr = editor.dataset.extends;
-    const extendsNamesArr = extendsNamesStr ? extendsNamesStr.split(/\s/) : [];
-    const extendsElems = extendsNamesArr.map(name => document.querySelector(`textarea[name="${name}"]`));
+    function getExtendsNames(elem) {
+      const extendsNamesStr = elem.dataset.extends;
+      return extendsNamesStr ? extendsNamesStr.split(/\s/) : [];
+    }
+    const yetToExtend = getExtendsNames(editor);
+    const extendsElems = [];
+    while (yetToExtend.length) {
+      const name = yetToExtend.pop();
+      const elem = document.querySelector(`textarea[name="${name}"]`);
+      extendsElems.unshift(elem);
+      yetToExtend.push(...getExtendsNames(elem));
+    }
     if (output) {
       editor.oninput = function () {
         editor.rows = editor.value.split('\n').length;

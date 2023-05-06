@@ -1120,7 +1120,7 @@ To      square something, multiply   it by itself.</code></pre>
     Now we can use <code>sum-of-squares</code> as a building block in
     constructing further procedures:
   </p>
-  <textarea name="1.1.4-04" data-extends="1.1.4-01 1.1.4-03">
+  <textarea name="1.1.4-04" data-extends="1.1.4-03">
 (define (f a)
   (sum-of-squares (+ a 1) (* a 2)))
 
@@ -1705,14 +1705,14 @@ test</output>
     A guess is improved by averaging it with the quotient of the radicand and
     the old guess:
   </p>
-  <textarea name="1.1.7-02" data-extends="1.1.4-01 1.1.6-03 1.1.7-01">
+  <textarea name="1.1.7-02" data-extends="1.1.7-01">
 (define (improve guess x)
   (average guess (/ x guess)))</textarea>
   <output for="1.1.7-02" class="block">improve</output>
   <p>
     where
   </p>
-  <textarea name="1.1.7-03" data-extends="1.1.4-01 1.1.6-03 1.1.7-01 1.1.7-02">
+  <textarea name="1.1.7-03" data-extends="1.1.7-02">
 (define (average x y)
   (/ (+ x y) 2))</textarea>
   <output for="1.1.7-03" class="block">average</output>
@@ -1724,8 +1724,7 @@ test</output>
     predetermined tolerance (here 0.001):<sup id="r1.22s"><a href="#r1.22d"
     >22</a></sup>
   </p>
-  <textarea name="1.1.7-04"
-    data-extends="1.1.4-01 1.1.6-03 1.1.7-01 1.1.7-02 1.1.7-03">
+  <textarea name="1.1.7-04" data-extends="1.1.7-03">
 (define (good-enough? guess x)
   (&lt; (abs (- (square guess) x)) 0.001))</textarea>
   <output for="1.1.7-04" class="block">good-enough?</output>
@@ -1734,8 +1733,7 @@ test</output>
     that the square root of any number is 1:<sup id="r1.23s"><a href="#r1.23d"
     >23</a></sup>
   </p>
-  <textarea name="1.1.7-05"
-    data-extends="1.1.4-01 1.1.6-03 1.1.7-01 1.1.7-02 1.1.7-03 1.1.7-04">
+  <textarea name="1.1.7-05" data-extends="1.1.7-04">
 (define (sqrt x)
   (sqrt-iter 1.0 x))</textarea>
   <output for="1.1.7-05" class="block">sqrt</output>
@@ -1743,9 +1741,7 @@ test</output>
     If we type these definitions to the interpreter, we can use sqrt just as we
     can use any procedure:
   </p>
-  <textarea name="1.1.7-06"
-    data-extends="1.1.4-01 1.1.6-03 1.1.7-01 1.1.7-02 1.1.7-03 1.1.7-04 1.1.7-05"
-   >
+  <textarea name="1.1.7-06" data-extends="1.1.7-05">
 (sqrt 9)
 (sqrt (+ 100 37))
 (sqrt (+ (sqrt 2) (sqrt 3)))
@@ -1792,8 +1788,7 @@ test</output>
     Delighted, Alyssa uses <code>new-if</code> to rewrite the
     <code>square-root</code> program:
   </p>
-  <textarea name="e1.6-03"
-    data-extends="1.1.4-01 1.1.6-03 1.1.7-02 1.1.7-03 1.1.7-04 e1.6-01">
+  <textarea name="e1.6-03" data-extends="1.1.7-04 e1.6-01">
 (define (sqrt-iter guess x)
   (new-if (good-enough? guess x)
           guess
@@ -1820,8 +1815,7 @@ test</output>
     guess. Design a <code>square-root</code> procedure that uses this kind of
     end test. Does this work better for small and large numbers?
   </p>
-  <textarea name="e1.7-01"
-    data-extends="1.1.4-01 1.1.6-03 1.1.7-02 1.1.7-03 1.1.7-05">
+  <textarea name="e1.7-01" data-extends="1.1.7-05">
 (define (sqrt-iter guess x)
   ???)
 (define (good-enough? ???)
@@ -2001,7 +1995,7 @@ test</output>
     like to control the use of names. The existing program consists of separate
     procedures:
   </p>
-  <textarea name="1.1.8-01" data-extends="1.1.4-01 1.1.6-03 1.1.7-03">
+  <textarea name="1.1.8-01" data-extends="1.1.7-03">
 (define (sqrt x)
   (sqrt-iter 1.0 x))
 (define (sqrt-iter guess x)
@@ -2035,7 +2029,7 @@ improve</output>
     procedure to have internal definitions that are local to that procedure.
     For example, in the <code>square-root</code> problem we can write
   </p>
-  <textarea name="1.1.8-02" data-extends="1.1.4-01 1.1.6-02 1.1.7-03">
+  <textarea name="1.1.8-02" data-extends="1.1.7-03">
 (define (sqrt x)
   (define (good-enough? guess x)
     (&lt; (abs (- (square guess) x)) 0.001))
@@ -2062,7 +2056,7 @@ improve</output>
     enclosing procedure <code>sqrt</code> is called. This discipline is called
     <em>lexical scoping</em>.<sup id="r1.27s"><a href="#r1.27d">27</a></sup>
   </p>
-  <textarea name="1.1.8-03" data-extends="1.1.4-01 1.1.6-02 1.1.7-03">
+  <textarea name="1.1.8-03" data-extends="1.1.7-03">
 (define (sqrt x)
   (define (good-enough? guess)
     (&lt; (abs (- (square guess) x)) 0.001))
