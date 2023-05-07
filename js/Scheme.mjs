@@ -1,3 +1,9 @@
+function makeNumber(value) { return { type: 'number', value: +value }; };
+function makeSymbol(value) { return { type: 'symbol', value }; };
+function makeList(value) { return { type: 'list', value }; };
+function makeProcedure(name, value) { return { type: 'procedure', name, value }; };
+function makeBool(value) { return { type: 'symbol', value: !!value ? '#t' : '#f' }; };
+
 function parse(source) {
   const expressions = [];
   while (true) {
@@ -38,7 +44,7 @@ function parseList(source) {
     const { result, error, value, continueFrom } = parseNext(source);
     switch (result) {
       case 'endOfFile': return { result: 'error', error: "Error while parsing list: Unexpected end of input" };
-      case 'endOfList': return { result: 'success', value: elems, continueFrom };
+      case 'endOfList': return { result: 'success', value: makeList(elems), continueFrom };
       case 'error': return { result: 'error', error: `Error while parsing list: ${error}` };
       case 'success': elems.push(value);
     }
@@ -50,10 +56,12 @@ function parseAtom(source) {
   source = source.trimStart();
   if (!source) return { result: 'error', error: "Internal error: Unexpected end of input while parsing atom" };
   if (source[0] === '(') return { result: 'error', error: "Internal error: Unexpected start of list marker '(' while parsing atom" };
-  if (source[0] === '(') return { result: 'error', error: "Internal error: Unexpected end of list marker ')' while parsing atom" };
+  if (source[0] === ')') return { result: 'error', error: "Internal error: Unexpected end of list marker ')' while parsing atom" };
   const value = source.match(/^[^\s\(\)]+/)[0];
   const continueFrom = source.substring(value.length);
-  return { result: 'success', value, continueFrom };
+  return value.match(/^-?\d+(\.\d+)?$/)
+    ? { result: 'success', value: makeNumber(value), continueFrom }
+    : { result: 'success', value: makeSymbol(value), continueFrom };
 };
 
 function evaluate(source) {
@@ -79,154 +87,127 @@ function evaluator() {
   }
 };
 
-function expressionIsAtom(expression) {
-  return typeof(expression) === 'string' || typeof(expression) === 'number' || typeof(expression) === 'boolean';
-};
-
-function expressionIsList(expression) {
-  return Array.isArray(expression);
-};
-
-function expressionIsProcedure(expression) {
-  return typeof(expression) === 'function';
-};
-
-function expressionIsEmpty(expression) {
-  return expression === undefined;
-};
-
 function evaluateIn(expression, environment) {
-  if (expressionIsAtom(expression)) {
-    return evaluateAtomIn(expression, environment);
-  } else if (expressionIsList(expression)) {
-    return evaluateListIn(expression, environment);
-  } else {
-    throw new Error(`Internal error: Unknown expression '${expression}'`);
+  switch (expression.type) {
+    case 'number': return expression;
+    case 'procedure': return expression;
+    case 'symbol': return evaluateSymbolIn(expression, environment);
+    case 'list': return evaluateListIn(expression, environment);
+    default: throw new Error(`Internal error: Unknown expression type '${expression.type}' for expression '${expression}'`);
   }
 };
 
-function evaluateAtomIn(expression, environment) {
-  if (expression.match(/^-?\d+(\.\d+)?$/)) return +expression;
-  if (!(expression in environment)) throw new Error(`Error when evaluating expression: Unbound variable '${expression}'`);
-  return environment[expression];
+function evaluateSymbolIn(expression, environment) {
+  const { value: name } = expression;
+  if (!(name in environment)) throw new Error(`Error when evaluating expression: Unbound variable '${name}'`);
+  return environment[name];
 };
 
 function evaluateListIn(expression, environment) {
-  if (expression.length === 0) throw new Error("Error when evaluating expression: Empty combination is invalid");
+  if (expression.type !== 'list') throw new Error(`Internal error: Expected list`);
+  if (expression.value.length === 0) throw new Error("Error when evaluating expression: Empty combination is invalid");
 
-  let [operator, ...operands] = expression;
-  switch (operator) {
-    case 'define': return evaluateDefine(operands, environment);
-    case 'cond': return evaluateCond(operands, environment);
-    case 'if': return evaluateIf(operands, environment);
-    case 'and': return evaluateAnd(operands, environment);
-    case 'or': return evaluateOr(operands, environment);
+  let [operator, ...operands] = expression.value;
+  switch (`${operator.type}-${operator.value}`) {
+    case 'symbol-define': return evaluateDefine(operands, environment);
+    case 'symbol-cond': return evaluateCond(operands, environment);
+    case 'symbol-if': return evaluateIf(operands, environment);
+    case 'symbol-and': return evaluateAnd(operands, environment);
+    case 'symbol-or': return evaluateOr(operands, environment);
     default:
       operator = evaluateIn(operator, environment);
+      if (operator.type !== 'procedure')
+        throw new Error("Error when evaluating expression: Operator is not a procedure");
       operands = operands.map(operand => evaluateIn(operand, environment));
-      return operator(operands);
+      return operator.value(operands);
   }
 };
 
 function evaluateDefine(operands, environment) {
-  const [definitionName, ...expressions] = operands;
-  if (expressionIsAtom(definitionName)) {
-    if (expressions.length !== 1) throw new Error("Error when evaluating 'define' expression: Only one value permitted");
-    const value = evaluateIn(expressions[0], environment);
-    environment[definitionName] = value;
-    return definitionName;
-  } else if (expressionIsList(definitionName)) {
-    const [procedureName, ...parameters] = definitionName;
-    const procedure = function (args) {
-      if (parameters.length !== args.length) throw new Error(`Error when evaluating procedure: ${procedureName} expects ${parameters.length} arguments but got ${args.length}`);
-      const bindings = parameters.map((parameter, index) => [parameter, args[index]]);
-      var activationRecord = {
-        ...environment,
-        ...Object.fromEntries(bindings),
+  const [term, ...expressions] = operands;
+  switch (term.type) {
+    case 'symbol':
+      if (expressions.length !== 1)
+        throw new Error("Error when evaluating 'define' expression: Only one value permitted");
+      const value = evaluateIn(expressions[0], environment);
+      environment[term.value] = value;
+      return term;
+    case 'list':
+      const [name, ...parameters] = term.value;
+      if (name.type !== 'symbol')
+        throw new Error("Error when evaluating 'define' expression: Procedure name must be symbol");
+      const procedure = function (args) {
+        if (parameters.length !== args.length)
+          throw new Error(`Error when evaluating procedure: ${name.value} expects ${parameters.length} arguments but got ${args.length}`);
+        const bindings = parameters.map((parameter, index) => [parameter.value, args[index]]);
+        var activationRecord = {
+          ...environment,
+          ...Object.fromEntries(bindings),
+        };
+        let value;
+        for (const expression of expressions) {
+          value = evaluateIn(expression, activationRecord);
+        }
+        return value;
       };
-      let value;
-      for (const expression of expressions) {
-        value = evaluateIn(expression, activationRecord);
-      }
-      return value;
-    };
-    environment[procedureName] = procedure;
-    return procedureName;
-  } else {
-    throw new Error('Error when evaluating \'define\' expression: Must define a name or a procedure');
+      environment[name.value] = makeProcedure(name.value, procedure);
+      return name;
+    default:
+      throw new Error("Error when evaluating 'define' expression: Must define a name or a procedure");
   }
 };
 
 function evaluateCond(operands, environment) {
   for (const operand of operands) {
-    const [predicate, expression] = operand;
-    if (predicate === 'else') return evaluateIn(expression, environment);
-    if (evaluateIn(predicate, environment)) return evaluateIn(expression, environment);
+    if (operand.type !== 'list')
+      throw new Error(`Error when evaluating 'cond' expression: Expected clause to be pair but got ${operand}`);
+    const [predicate, expression] = operand.value;
+    if (predicate.type === 'symbol' && predicate.value === 'else' || evaluateIn(predicate, environment).value !== '#f')
+      return evaluateIn(expression, environment);
   }
 };
 
 function evaluateIf(operands, environment) {
   const [predicate, consequent, alternative] = operands;
-  return evaluateIn(predicate, environment)
+  return evaluateIn(predicate, environment).value !== '#f'
     ? evaluateIn(consequent, environment)
     : evaluateIn(alternative, environment);
 };
 
 function evaluateAnd(operands, environment) {
   for (const operand of operands) {
-    if (!evaluateIn(operand, environment)) return false;
+    if (evaluateIn(operand, environment).value !== '#f') return false;
   }
   return true;
 };
 
 function evaluateOr(operands, environment) {
   for (const operand of operands) {
-    if (evaluateIn(operand, environment)) return true;
+    if (evaluateIn(operand, environment).value !== '#f') return true;
   }
   return false;
 };
 
 function printExpression(expression) {
-  if (expressionIsAtom(expression)) {
-    return printAtom(expression);
-  } else if (expressionIsList(expression)) {
-    return printList(expression);
-  } else if (expressionIsProcedure(expression)) {
-    return printProcedure(expression);
-  } else if (expressionIsEmpty) {
-    return printEmpty(expression);
-  } else {
-    throw new Error(`Internal error: Unknown expression '${expression}'`);
+  switch (expression.type) {
+    case 'number': return expression.value.toString();
+    case 'procedure': return expression.name;
+    case 'symbol': return expression.value;
+    case 'list': return `(${expression.value.map(printExpression).join(' ')})`;
   }
 };
 
-function printAtom(expression) {
-  return expression.toString();
-};
-
-function printList(expression) {
-  return `(${expression.map(printExpression).join(' ')})`;
-};
-
-function printProcedure() {
-  return 'Primitive procedure';
-};
-
-function printEmpty() {
-  return null;
-};
-
 const GlobalEnvironment = () => ({
-  '+': ([first, ...rest]) => rest.reduce((result, operand) => result + operand, first),
-  '-': ([first, ...rest]) => rest.length === 0 ? -first : rest.reduce((result, operand) => result - operand, first),
-  '*': ([first, ...rest]) => rest.reduce((result, operand) => result * operand, first),
-  '/': ([first, ...rest]) => rest.reduce((result, operand) => result / operand, first),
-  '=': ([first, second]) => first === second,
-  '<': ([first, second]) => first < second,
-  '>': ([first, second]) => first > second,
-  'inc': ([n]) => n + 1,
-  'dec': ([n]) => n - 1,
-  'remainder': ([dividend, divisor]) => dividend % divisor,
+  '+': makeProcedure('+', ([first, ...rest]) => makeNumber(rest.reduce((result, operand) => result + operand.value, first.value))),
+  '-': makeProcedure('-', ([first, ...rest]) => makeNumber(rest.length === 0 ? -first.value : rest.reduce((result, operand) => result - operand.value, first.value))),
+  '*': makeProcedure('*', ([first, ...rest]) => makeNumber(rest.reduce((result, operand) => result * operand.value, first.value))),
+  '/': makeProcedure('/', ([first, ...rest]) => makeNumber(rest.reduce((result, operand) => result / operand.value, first.value))),
+  '=': makeProcedure('=', ([first, second]) => makeBool(first.value === second.value)),
+  '<': makeProcedure('<', ([first, second]) => makeBool(first.value < second.value)),
+  '>': makeProcedure('>', ([first, second]) => makeBool(first.value > second.value)),
+  'inc': makeProcedure('inc', ([n]) => makeNumber(n.value + 1)),
+  'dec': makeProcedure('dec', ([n]) => makeNumber(n.value - 1)),
+  'remainder': makeProcedure('remainer', ([dividend, divisor]) => makeNumber(dividend.value % divisor.value)),
 });
 
 export {

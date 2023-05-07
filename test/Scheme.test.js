@@ -106,25 +106,35 @@ describe('1. Building Abstractions with Procedures', () => {
 
     describe('1.1.6 Conditional Expressions and Predicates', () => {
       test('Using cond expression', () => {
-        expect(evaluate(`
+        const evaluate = evaluator();
+        evaluate(`
           (define (abs x)
             (cond ((> x 0) x)
                   ((= x 0) 0)
                   ((< x 0) (- x))))
-        `)).toBe('abs');
+        `);
+        expect(evaluate('(abs -1)')).toBe('1');
+        expect(evaluate('(abs 1)')).toBe('1');
+        expect(evaluate('(abs 0)')).toBe('0');
 
-        expect(evaluate(`
+        evaluate(`
           (define (abs x)
             (cond ((< x 0) (- x))
                   (else x)))
-        `)).toBe('abs');
+        `);
+        expect(evaluate('(abs -1)')).toBe('1');
+        expect(evaluate('(abs 1)')).toBe('1');
+        expect(evaluate('(abs 0)')).toBe('0');
 
-        expect(evaluate(`
+        evaluate(`
           (define (abs x)
             (if (< x 0)
                 (- x)
                 x))
-        `)).toBe('abs');
+        `);
+        expect(evaluate('(abs -1)')).toBe('1');
+        expect(evaluate('(abs 1)')).toBe('1');
+        expect(evaluate('(abs 0)')).toBe('0');
       });
 
       test('Exercise 1.1', () => {
@@ -137,7 +147,7 @@ describe('1. Building Abstractions with Procedures', () => {
         expect(evaluate('(define a 3)')).toBe('a');
         expect(evaluate('(define b (+ a 1))')).toBe('b');
         expect(evaluate('(+ a b (* a b))')).toBe('19');
-        expect(evaluate('(= a b)')).toBe('false');
+        expect(evaluate('(= a b)')).toBe('#f');
         expect(evaluate(`
           (if (and (> b a) (< b (* a b)))
               b
