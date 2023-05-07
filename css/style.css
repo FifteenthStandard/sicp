@@ -1,18 +1,9 @@
 :root {
-  --color-black: #000000;
-  --color-white: #ffffff;
   --color-accent-1: #0080ff;
   --color-accent-2: #ff4040;
-  --color-text: var(--color-black);
-  --color-background: var(--color-white);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --color-text: var(--color-white);
-    --color-background: var(--color-black);
-  }
-
   img {
     filter: invert(1);
   }
@@ -39,8 +30,6 @@
 }
 
 body {
-  color: var(--color-text);
-  background-color: var(--color-background);
   font-family: 'Helvetica Neue', sans-serif;
   padding-inline: 1ch;
   line-height: 1.5em;
@@ -71,8 +60,7 @@ blockquote {
 
 textarea {
   width: 100%;
-  color: var(--color-text);
-  background-color: var(--color-background);
+  background-color: inherit;
   resize: vertical;
   outline: none;
   border: none;
@@ -111,7 +99,7 @@ img {
 mtext { white-space: pre; }
 
 a {
-  color: var(--color-text);
+  color: inherit;
   text-decoration-color: var(--color-accent-1);
 }
 a:hover {
