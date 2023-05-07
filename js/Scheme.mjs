@@ -1,8 +1,10 @@
 function makeNumber(value) { return { type: 'number', value: +value }; };
 function makeSymbol(value) { return { type: 'symbol', value }; };
+function makeString(value) { return { type: 'string', value }; };
 function makeList(value) { return { type: 'list', value }; };
 function makeProcedure(name, value) { return { type: 'procedure', name, value }; };
-function makeBool(value) { return { type: 'symbol', value: !!value ? '#t' : '#f' }; };
+function makeBool(value) { return { type: 'symbol', value: !!value ? 'true' : 'false' }; };
+function makeVoid() { return { type: 'void' }; };
 
 function parse(source) {
   const expressions = [];
@@ -22,6 +24,7 @@ function parseNext(source) {
   source = source.trimStart();
   if (!source) return { result: 'endOfFile' };
   if (source[0] === ';') return parseComment(source);
+  if (source[0] === '"') return parseString(source);
   if (source[0] === '(') return parseList(source);
   if (source[0] === ')') return { result: 'endOfList', continueFrom: source.substring(1) };
   return parseAtom(source);
@@ -34,6 +37,15 @@ function parseComment(source) {
   if (endOfLine === -1) endOfLine = source.length;
   const comment = source.substring(0, endOfLine);
   return { result: 'comment', comment, continueFrom: source.substring(endOfLine) };
+};
+
+function parseString(source) {
+  if (source[0] !== '"') return { result: 'error', error: "Internal error: Expected start of string marker '\"'" };
+  source = source.substring(1);
+  let endOfString = source.indexOf('"');
+  if (endOfString === -1) return { result: 'error', error: "Error while parsing string: Unexpected end of input" };
+  const value = source.substring(0, endOfString);
+  return { result: 'success', value: makeString(value), continueFrom: source.substring(endOfString+1) };
 };
 
 function parseList(source) {
@@ -64,9 +76,9 @@ function parseAtom(source) {
     : { result: 'success', value: makeSymbol(value), continueFrom };
 };
 
-function evaluate(source) {
+function evaluate(source, { print } = { print: () => {} }) {
   const expressions = parse(source);
-  const environment = GlobalEnvironment();
+  const environment = GlobalEnvironment({ print });
   const values = expressions
     .map(expression => evaluateIn(expression, environment))
     .map(printExpression);
@@ -74,15 +86,17 @@ function evaluate(source) {
   return values.length === 1 ? values[0] : values;
 };
 
-function evaluator() {
-  const environment = GlobalEnvironment();
+function evaluator({ print } = { print: () => {} }) {
+  const environment = GlobalEnvironment({ print });
 
   return function evaluate(source) {
     const expressions = parse(source);
-    const values = expressions
-      .map(expression => evaluateIn(expression, environment))
-      .map(printExpression);
-
+    const values = [];
+    for (const expression of expressions) {
+      const value = printExpression(evaluateIn(expression, environment));
+      print(`${value}\n`);
+      values.push(value);
+    }
     return values.length === 1 ? values[0] : values;
   }
 };
@@ -90,6 +104,7 @@ function evaluator() {
 function evaluateIn(expression, environment) {
   switch (expression.type) {
     case 'number': return expression;
+    case 'string': return expression;
     case 'procedure': return expression;
     case 'symbol': return evaluateSymbolIn(expression, environment);
     case 'list': return evaluateListIn(expression, environment);
@@ -162,42 +177,44 @@ function evaluateCond(operands, environment) {
     if (operand.type !== 'list')
       throw new Error(`Error when evaluating 'cond' expression: Expected clause to be pair but got ${operand}`);
     const [predicate, expression] = operand.value;
-    if (predicate.type === 'symbol' && predicate.value === 'else' || evaluateIn(predicate, environment).value !== '#f')
+    if (predicate.type === 'symbol' && predicate.value === 'else' || evaluateIn(predicate, environment).value !== 'false')
       return evaluateIn(expression, environment);
   }
 };
 
 function evaluateIf(operands, environment) {
   const [predicate, consequent, alternative] = operands;
-  return evaluateIn(predicate, environment).value !== '#f'
+  return evaluateIn(predicate, environment).value !== 'false'
     ? evaluateIn(consequent, environment)
-    : evaluateIn(alternative, environment);
+    : alternative ? evaluateIn(alternative, environment) : makeVoid();
 };
 
 function evaluateAnd(operands, environment) {
   for (const operand of operands) {
-    if (evaluateIn(operand, environment).value !== '#f') return false;
+    if (evaluateIn(operand, environment).value !== 'false') return makeBool(false);
   }
-  return true;
+  return makeBool(true);
 };
 
 function evaluateOr(operands, environment) {
   for (const operand of operands) {
-    if (evaluateIn(operand, environment).value !== '#f') return true;
+    if (evaluateIn(operand, environment).value !== 'false') return makeBool(true);
   }
-  return false;
+  return makeBool(false);
 };
 
 function printExpression(expression) {
   switch (expression.type) {
     case 'number': return expression.value.toString();
+    case 'string': return expression.value;
     case 'procedure': return expression.name;
     case 'symbol': return expression.value;
     case 'list': return `(${expression.value.map(printExpression).join(' ')})`;
+    case 'void': return '';
   }
 };
 
-const GlobalEnvironment = () => ({
+const GlobalEnvironment = ({ print }) => ({
   '+': makeProcedure('+', ([first, ...rest]) => makeNumber(rest.reduce((result, operand) => result + operand.value, first.value))),
   '-': makeProcedure('-', ([first, ...rest]) => makeNumber(rest.length === 0 ? -first.value : rest.reduce((result, operand) => result - operand.value, first.value))),
   '*': makeProcedure('*', ([first, ...rest]) => makeNumber(rest.reduce((result, operand) => result * operand.value, first.value))),
@@ -208,6 +225,12 @@ const GlobalEnvironment = () => ({
   'inc': makeProcedure('inc', ([n]) => makeNumber(n.value + 1)),
   'dec': makeProcedure('dec', ([n]) => makeNumber(n.value - 1)),
   'remainder': makeProcedure('remainer', ([dividend, divisor]) => makeNumber(dividend.value % divisor.value)),
+  'display': makeProcedure('display', ([expr]) => makeVoid(print(printExpression(expr)))),
+  'newline': makeProcedure('newline', () => makeVoid(print('\n'))),
+  'runtime': makeProcedure('runtime', () => makeNumber(Date.now())),
+  'random': makeProcedure('random', ([n]) => makeNumber(Math.floor(Math.random() * n.value))),
+  'true': makeBool(true),
+  'false': makeBool(false),
 });
 
 export {

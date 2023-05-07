@@ -19,21 +19,25 @@ window.addEventListener('load', function () {
       yetToExtend.push(...getExtendsNames(elem));
     }
     if (output) {
+      let silent;
+      const print = function (expr) {
+        if (!silent) output.value += expr;
+      };
       editor.oninput = function () {
+        output.value = '';
         editor.rows = editor.value.split('\n').length;
-        const evaluate = evaluator();
+        const evaluate = evaluator({ print });
         try {
+          silent = true;
           for (const elem of extendsElems) {
             evaluate(elem.value);
           }
-          const result = evaluate(editor.value);
-          output.value = (Array.isArray(result)
-            ? result.filter(line => line).join('\n')
-            : result)
-            || '\u200B';
+          silent = false;
+          evaluate(editor.value);
         } catch (error) {
-          output.value = error.message;
+          print(error.message);
         }
+        if (!output.value) output.value = '\u200B';
       };
     }
   }
