@@ -124,7 +124,9 @@ function evaluateListIn(expression, environment) {
 
   let [operator, ...operands] = expression.value;
   switch (`${operator.type}-${operator.value}`) {
+    case 'symbol-lambda': return evaluateLambda(operands, environment);
     case 'symbol-define': return evaluateDefine(operands, environment);
+    case 'symbol-let': return evaluateLet(operands, environment);
     case 'symbol-cond': return evaluateCond(operands, environment);
     case 'symbol-if': return evaluateIf(operands, environment);
     case 'symbol-and': return evaluateAnd(operands, environment);
@@ -136,6 +138,35 @@ function evaluateListIn(expression, environment) {
       operands = operands.map(operand => evaluateIn(operand, environment));
       return operator.value(operands);
   }
+};
+
+function evaluateLambda(operands, environment) {
+  const [parameters, body] = operands;
+  if (parameters.type !== 'list')
+    throw new Error("Error when evaluating 'lambda' expression: First operand must be parameter list");
+  const procedure = function (args) {
+    if (parameters.value.length !== args.length)
+      throw new Error(`Error when evaluating procedure: lambda expects ${parameters.value.length} arguments but got ${args.length}`);
+    const bindings = parameters.value.map((parameter, index) => [parameter.value, args[index]]);
+    const activationRecord = {
+      ...environment,
+      ...Object.fromEntries(bindings),
+    };
+    return evaluateIn(body, activationRecord);
+  };
+  return makeProcedure('lambda', procedure);
+};
+
+function evaluateLet(operands, environment) {
+  const [definitions, body] = operands;
+  if (definitions.type !== 'list')
+    throw new Error("Error when evaluating 'let' expression: First operand must be definition list");
+  const bindings = definitions.value.map(({ value: [name, expression] }) => [name.value, evaluateIn(expression, environment)]);
+  const activationRecord = {
+    ...environment,
+    ...Object.fromEntries(bindings),
+  };
+  return evaluateIn(body, activationRecord);
 };
 
 function evaluateDefine(operands, environment) {
@@ -155,7 +186,7 @@ function evaluateDefine(operands, environment) {
         if (parameters.length !== args.length)
           throw new Error(`Error when evaluating procedure: ${name.value} expects ${parameters.length} arguments but got ${args.length}`);
         const bindings = parameters.map((parameter, index) => [parameter.value, args[index]]);
-        var activationRecord = {
+        const activationRecord = {
           ...environment,
           ...Object.fromEntries(bindings),
         };
@@ -191,7 +222,7 @@ function evaluateIf(operands, environment) {
 
 function evaluateAnd(operands, environment) {
   for (const operand of operands) {
-    if (evaluateIn(operand, environment).value !== 'false') return makeBool(false);
+    if (evaluateIn(operand, environment).value === 'false') return makeBool(false);
   }
   return makeBool(true);
 };
@@ -215,22 +246,25 @@ function printExpression(expression) {
 };
 
 const GlobalEnvironment = ({ print }) => ({
-  '+': makeProcedure('+', ([first, ...rest]) => makeNumber(rest.reduce((result, operand) => result + operand.value, first.value))),
   '-': makeProcedure('-', ([first, ...rest]) => makeNumber(rest.length === 0 ? -first.value : rest.reduce((result, operand) => result - operand.value, first.value))),
   '*': makeProcedure('*', ([first, ...rest]) => makeNumber(rest.reduce((result, operand) => result * operand.value, first.value))),
   '/': makeProcedure('/', ([first, ...rest]) => makeNumber(rest.reduce((result, operand) => result / operand.value, first.value))),
-  '=': makeProcedure('=', ([first, second]) => makeBool(first.value === second.value)),
+  '+': makeProcedure('+', ([first, ...rest]) => makeNumber(rest.reduce((result, operand) => result + operand.value, first.value))),
   '<': makeProcedure('<', ([first, second]) => makeBool(first.value < second.value)),
+  '=': makeProcedure('=', ([first, second]) => makeBool(first.value === second.value)),
   '>': makeProcedure('>', ([first, second]) => makeBool(first.value > second.value)),
-  'inc': makeProcedure('inc', ([n]) => makeNumber(n.value + 1)),
+  'cos': makeProcedure('cos', ([x]) => makeNumber(Math.cos(x.value))),
   'dec': makeProcedure('dec', ([n]) => makeNumber(n.value - 1)),
-  'remainder': makeProcedure('remainer', ([dividend, divisor]) => makeNumber(dividend.value % divisor.value)),
   'display': makeProcedure('display', ([expr]) => makeVoid(print(printExpression(expr)))),
-  'newline': makeProcedure('newline', () => makeVoid(print('\n'))),
-  'runtime': makeProcedure('runtime', () => makeNumber(Date.now())),
-  'random': makeProcedure('random', ([n]) => makeNumber(Math.floor(Math.random() * n.value))),
-  'true': makeBool(true),
   'false': makeBool(false),
+  'inc': makeProcedure('inc', ([n]) => makeNumber(n.value + 1)),
+  'log': makeProcedure('log', ([n]) => makeNumber(Math.log(n.value))),
+  'newline': makeProcedure('newline', () => makeVoid(print('\n'))),
+  'random': makeProcedure('random', ([n]) => makeNumber(Math.floor(Math.random() * n.value))),
+  'remainder': makeProcedure('remainer', ([dividend, divisor]) => makeNumber(dividend.value % divisor.value)),
+  'runtime': makeProcedure('runtime', () => makeNumber(Date.now())),
+  'sin': makeProcedure('sin', ([n]) => makeNumber(Math.sin(n.value))),
+  'true': makeBool(true),
 });
 
 export {

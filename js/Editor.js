@@ -19,12 +19,13 @@ window.addEventListener('load', function () {
       yetToExtend.push(...getExtendsNames(elem));
     }
     if (output) {
+      let outputStr;
       let silent;
       const print = function (expr) {
-        if (!silent) output.value += expr;
+        if (!silent) outputStr += expr;
       };
       editor.oninput = function () {
-        output.value = '';
+        outputStr = '';
         editor.rows = editor.value.split('\n').length;
         const evaluate = evaluator({ print });
         try {
@@ -37,7 +38,8 @@ window.addEventListener('load', function () {
         } catch (error) {
           print(error.message);
         }
-        if (!output.value) output.value = '\u200B';
+        if (!outputStr) outputStr = '\u200B';
+        output.value = outputStr.trim();
       };
     }
   }

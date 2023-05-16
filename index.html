@@ -1059,7 +1059,7 @@ circumference
   <p>
     We can understand this in the following way:
   </p>
-<pre><code>(define (square  x)        (*         x     x))
+  <pre><code>(define (square  x)        (*         x     x))
  ↑         ↑     ↑          ↑         ↑     ↑
 To      square something, multiply   it by itself.</code></pre>
   <p>
@@ -1706,14 +1706,14 @@ test</output>
     A guess is improved by averaging it with the quotient of the radicand and
     the old guess:
   </p>
-  <textarea name="1.1.7-02" data-extends="1.1.7-01">
+  <textarea name="1.1.7-02" data-extends="1.1.7-01 1.1.7-03">
 (define (improve guess x)
   (average guess (/ x guess)))</textarea>
   <output for="1.1.7-02" class="block">improve</output>
   <p>
     where
   </p>
-  <textarea name="1.1.7-03" data-extends="1.1.7-02">
+  <textarea name="1.1.7-03">
 (define (average x y)
   (/ (+ x y) 2))</textarea>
   <output for="1.1.7-03" class="block">average</output>
@@ -2585,7 +2585,7 @@ fact-iter</output>
 <section id="e1.10">
   <h5><a href="#e1.10">Exercise 1.10</a></h5>
   <p>
-    The following procedure computes a mathematical function called Ackermann's
+    The following procedure computes a mathematical function called Ackermann’s
     function.
   </p>
   <textarea name="e1.10-01">
@@ -2944,7 +2944,7 @@ first-denomination</output>
 <section id="e1.12">
   <h5><a href="#e1.2">Exercise 1.12</a></h5>
   <p>
-    The following pattern of numbers is called <em>Pascal's triangle</em>.
+    The following pattern of numbers is called <em>Pascal’s triangle</em>.
   </p>
   <figure>
     <math display="block">
@@ -2975,7 +2975,7 @@ first-denomination</output>
     The numbers at the edge of the triangle are all 1, and each number inside
     the triangle is the sum of the two numbers above it.<sup id="r1.35s"><a
     href="#r1.35d">35</a></sup> Write a procedure that computes elements of
-    Pascal's triangle by means of a recursive process.
+    Pascal’s triangle by means of a recursive process.
   </p>
   <textarea name="e1.12-01"></textarea>
   <output for="e1.12-01" class="block">&nbsp;</output>
@@ -3521,11 +3521,11 @@ fib-iter</output>
     starting with any two positive integers and performing repeated reductions
     will always eventually produce a pair where the second number is 0. Then
     the GCD is the other number in the pair. This method for computing the GCD
-    is known as <em>Euclid's Algorithm</em>.<sup id="r1.42s"><a href="#r1.42d"
+    is known as <em>Euclid’s Algorithm</em>.<sup id="r1.42s"><a href="#r1.42d"
     >42</a></sup>
   </p>
   <p>
-    It is easy to express Euclid's Algorithm as a procedure:
+    It is easy to express Euclid’s Algorithm as a procedure:
   </p>
   <textarea name="1.2.5-01">
 (define (gcd a b)
@@ -3538,18 +3538,18 @@ fib-iter</output>
     logarithm of the numbers involved.
   </p>
   <p>
-    The fact that the number of steps required by Euclid's Algorithm has
+    The fact that the number of steps required by Euclid’s Algorithm has
     logarithmic growth bears an interesting relation to the Fibonacci numbers:
   </p>
   <p>
-    <strong>Lamé's Theorem:</strong> If Euclid's Algorithm requires <math><mi
+    <strong>Lamé’s Theorem:</strong> If Euclid’s Algorithm requires <math><mi
     >k</mi></math> steps to compute the GCD of some pair, then the smaller
     number in the pair must be greater than or equal to the <math><mi
     >k</mi></math>th Fibonacci number.<sup id="r1.43s"><a href="#r1.43d"
     >43</a></sup>
   </p>
   <p>
-    We can use this theorem to get an order-of-growth estimate for Euclid's
+    We can use this theorem to get an order-of-growth estimate for Euclid’s
     Algorithm. Let <math><mi>n</mi></math> be the smaller of the two inputs to
     the procedure. If the process takes <math><mi>k</mi></math> steps, then we
     must have <math><mi>n</mi><mo>&GreaterEqual;</mo><mtext>Fib</mtext><mo
@@ -3598,7 +3598,7 @@ fib-iter</output>
     Since ancient times, mathematicians have been fascinated by problems
     concerning prime numbers, and many people have worked on the problem of
     determining ways to test if numbers are prime. One way to test if a number
-    is prime is to find the number's divisors. The following program finds the
+    is prime is to find the number’s divisors. The following program finds the
     smallest integral divisor (greater than 1) of a given number <math><mi
     >n</mi></math>. It does this in a straightforward way, by testing <math><mi
     >n</mi></math> for divisibility by successive integers starting with 2.
@@ -3641,11 +3641,11 @@ divides?</output>
   <p>
     The <math><mi>θ</mi><mo>&lpar;</mo><mtext>log </mtext><mi>n</mi><mo
     >&rpar;</mo></math> primality test is based on a result from number theory
-    known as Fermat's Little Theorem.<sup id="r1.45s"><a href="#r1.45d"
+    known as Fermat’s Little Theorem.<sup id="r1.45s"><a href="#r1.45d"
     >45</a></sup>
   </p>
   <p>
-    <strong>Fermat's Little Theorem:</strong> If <math><mi>n</mi></math> is a
+    <strong>Fermat’s Little Theorem:</strong> If <math><mi>n</mi></math> is a
     prime number and <math><mi>a</mi></math> is any positive integer less than
     <math><mi>n</mi></math>, then <math><mi>a</mi></math> raised to the <math
     ><mi>n</mi></math>th power is congruent to <math><mi>a</mi><mtext
@@ -3894,7 +3894,7 @@ report-prime</output>
     Louis Reasoner is having great difficulty doing exercise <a
     href="#1.24">1.24</a>. His <code>fast-prime?</code> test seems to run more
     slowly than his <code>prime?</code> test. Louis calls his friend Eva Lu
-    Ator over to help. When they examine Louis's code, they find that he has
+    Ator over to help. When they examine Louis’s code, they find that he has
     rewritten the <code>expmod</code> procedure to use an explicit
     multiplication, rather than calling <code>square</code>:
   </p>
@@ -3910,7 +3910,7 @@ report-prime</output>
                     m))))</textarea>
   <output for="e1.26-01" class="block">expmod</output>
   <p>
-    “I don't see what difference that could make,” says Louis. “I do.” says
+    “I don’t see what difference that could make,” says Louis. “I do.” says
     Eva. “By writing the procedure like that, you have transformed the <math
     ><mi>θ</mi><mo>&lpar;</mo><mtext>log </mtext><mi>n</mi><mo
     >&rpar;</mo></math> process into a <math><mi>θ</mi><mo>&lpar;</mo><mi
@@ -3938,7 +3938,7 @@ report-prime</output>
   <p>
     One variant of the Fermat test that cannot be fooled is called the
     <em>Miller-Rabin test</em> (Miller 1976; Rabin 1980). This starts from an
-    alternate form of Fermat's Little Theorem, which states that if
+    alternate form of Fermat’s Little Theorem, which states that if
     <math><mi>n</mi></math> is a prime number and <math><mi>a</mi></math> is
     any positive integer less than <math><mi>n</mi></math>, then <math><mi
     >a</mi></math> raised to the <math><mo>&lpar;</mo><mi>n</mi><mo>-</mo><mn
@@ -4029,12 +4029,12 @@ report-prime</output>
     See exercise <a href="#e3.27">3.27</a>.
   </p>
   <p>
-    <sup id="r1.35d"><a href="#r1.35s">35</a></sup> The elements of Pascal's
+    <sup id="r1.35d"><a href="#r1.35s">35</a></sup> The elements of Pascal’s
     triangle are called the binomial coefficients, because the
     <math><mi>n</mi></math><sup>th</sup> row consists of the coefficients of
     the terms in the expansion of <math><msup><mrow><mo>&lpar;</mo><mi
     >x</mi><mo>+</mo><mi>y</mi><mo>&rpar;</mo></mrow><mi>n</mi></msup></math>.
-    This pattern for computing the coefficients appeared in Blaise Pascal's
+    This pattern for computing the coefficients appeared in Blaise Pascal’s
     1653 seminal work on probability theory, <em>Traité du triangle
     arithmétique</em>. According to Knuth (1973), the same pattern appears in
     the <em>Szu-yuen Yü-chien</em> (“The Precious Mirror of the Four
@@ -4081,18 +4081,18 @@ report-prime</output>
     sometimes known as the “Russian peasant method” of multiplication, is
     ancient. Examples of its use are found in the Rhind Papyrus, one of the two
     oldest mathematical documents in existence, written about 1700 B.C. (and
-    copied from an even older document) by an Egyptian scribe named A'h-mose.
+    copied from an even older document) by an Egyptian scribe named A’h-mose.
   </p>
   <p>
     <sup id="r1.41d"><a href="#r1.41s">41</a></sup> This exercise was suggested
     to us by Joe Stoy, based on an example in Kaldewaij 1990.
   </p>
   <p>
-    <sup id="r1.42d"><a href="#r1.42s">42</a></sup> Euclid's Algorithm is so
-    called because it appears in Euclid's Elements (Book 7, ca. 300 B.C.).
+    <sup id="r1.42d"><a href="#r1.42s">42</a></sup> Euclid’s Algorithm is so
+    called because it appears in Euclid’s Elements (Book 7, ca. 300 B.C.).
     According to Knuth (1973), it can be considered the oldest known nontrivial
     algorithm. The ancient Egyptian method of multiplication (exercise <a
-    href="#e1.18">1.18</a>) is surely older, but, as Knuth explains, Euclid's
+    href="#e1.18">1.18</a>) is surely older, but, as Knuth explains, Euclid’s
     algorithm is the oldest known to have been presented as a general
     algorithm, rather than as a set of illustrative examples.
   </p>
@@ -4103,7 +4103,7 @@ report-prime</output>
     consider pairs <math><mo>&lpar;</mo><msub><mi
     >a</mi><mi>k</mi></msub><mo>,</mo><msub><mi>b</mi><mi>k</mi></msub><mo
     >&rpar;</mo></math>, where <math><msub><mi>a</mi><mi>k</mi></msub><mo
-    >&gt;</mo><msub><mi>b</mi><mi>k</mi></msub></math>, for which Euclid's
+    >&gt;</mo><msub><mi>b</mi><mi>k</mi></msub></math>, for which Euclid’s
     Algorithm terminates in <math><mi>k</mi></math> steps. The proof is based
     on the claim that, if <math><mo>&lpar;</mo><msub><mi>a</mi><mrow><mi
     >k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>,</mo><msub><mi>b</mi><mrow
@@ -4167,7 +4167,7 @@ report-prime</output>
     >&lpar;</mo><mi>k</mi><mo>&rpar;</mo><mo>+</mo><mtext>Fib</mtext><mo
     >&lpar;</mo><mi>k</mi><mo>-</mo><mn>1</mn><mo>&rpar;</mo><mo>=</mo><mtext
     >Fib</mtext><mo>&lpar;</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo
-    >&rpar;</mo></math>, which completes the proof of Lamé's Theorem.
+    >&rpar;</mo></math>, which completes the proof of Lamé’s Theorem.
   </p>
   <p>
     <sup id="r1.44d"><a href="#r1.44s">44</a></sup> If <math><mi>d</mi></math>
@@ -4180,14 +4180,14 @@ report-prime</output>
     <sup id="r1.45d"><a href="#r1.45s">45</a></sup> Pierre de Fermat
     (1601-1665) is considered to be the founder of modern number theory. He
     obtained many important number-theoretic results, but he usually announced
-    just the results, without providing his proofs. Fermat's Little Theorem was
+    just the results, without providing his proofs. Fermat’s Little Theorem was
     stated in a letter he wrote in 1640. The first published proof was given by
     Euler in 1736 (and an earlier, identical proof was discovered in the
-    unpublished manuscripts of Leibniz). The most famous of Fermat's
-    results—known as Fermat's Last Theorem—was jotted down in 1637 in his copy
+    unpublished manuscripts of Leibniz). The most famous of Fermat’s
+    results—known as Fermat’s Last Theorem—was jotted down in 1637 in his copy
     of the book Arithmetic (by the third-century Greek mathematician
     Diophantus) with the remark “I have discovered a truly remarkable proof,
-    but this margin is too small to contain it.” Finding a proof of Fermat's
+    but this margin is too small to contain it.” Finding a proof of Fermat’s
     Last Theorem became one of the most famous challenges in number theory. A
     complete solution was finally given in 1995 by Andrew Wiles of Princeton
     University.
@@ -4500,8 +4500,8 @@ sum-integers</output>
 <section id="e1.29">
   <h5><a href="#e1.29">Exercise 1.29</a></h5>
   <p>
-    Simpson's Rule is a more accurate method of numerical integration than the
-    method illustrated above. Using Simpson's Rule, the integral of a function
+    Simpson’s Rule is a more accurate method of numerical integration than the
+    method illustrated above. Using Simpson’s Rule, the integral of a function
     <math><mi>f</mi></math> between <math><mi>a</mi></math> and <math><mi
     >b</mi></math> is approximated as
   </p>
@@ -4542,7 +4542,7 @@ sum-integers</output>
     approximation.) Define a procedure that takes as arguments <math><mi
     >f</mi></math>, <math><mi>a</mi></math>, <math><mi>b</mi></math>, and <math
     ><mi>n</mi></math> and returns the value of the integral, computed using
-    Simpson's Rule. Use your procedure to integrate <code>cube</code> between 0
+    Simpson’s Rule. Use your procedure to integrate <code>cube</code> between 0
     and 1 (with <math><mi>n</mi><mo>=</mo><mn>100</mn></math> and <math><mi
     >n</mi><mo>=</mo><mn>1000</mn></math>), and compare the results to those of
     the <code>integral</code> procedure shown above.
@@ -4684,6 +4684,609 @@ sum-integers</output>
   </ol>
   <textarea name="e1.33-02" data-extends="e1.33-01"></textarea>
   <output for="e1.33-02" class="block">&ZeroWidthSpace;</output>
+</section>
+</section>
+
+<section id="s1.3.2">
+  <h4><a href="#s1.3.2">1.3.2 Constructing Procedures Using <code
+    >Lambda</code></a></h4>
+  <p>
+    In using <code>sum</code> as in section <a href="#s1.3.1">1.3.1</a>, it
+    seems terribly awkward to have to define trivial procedures such as <code
+    >pi-term</code> and <code>pi-next</code> just so we can use them as
+    arguments to our higher-order procedure. Rather than define <code
+    >pi-next</code> and <code>pi-term</code>, it would be more convenient to
+    have a way to directly specify “the procedure that returns its input
+    incremented by 4” and “the procedure that returns the reciprocal of its
+    input times its input plus 2.” We can do this by introducing the special
+    form <code>lambda</code>, which creates procedures. Using <code
+    >lambda</code> we can describe what we want as
+  </p>
+  <textarea name="1.3.2-01">(lambda (x) (+ x 4))</textarea>
+  <output for="1.3.2-01" class="block">lambda</output>
+  <p>
+    and
+  </p>
+  <textarea name="1.3.2-02">(lambda (x) (/ 1.0 (* x (+ x 2))))</textarea>
+  <output for="1.3.2-02" class="block">lambda</output>
+  <p>
+    Then our <code>pi-sum</code> procedure can be expressed without defining
+    any auxiliary procedures as
+  </p>
+  <textarea name="1.3.2-03" data-extends="1.3.1-04">
+(define (pi-sum a b)
+  (sum (lambda (x) (/ 1.0 (* x (+ x 2))))
+       a
+       (lambda (x) (+ x 4))
+       b))</textarea>
+  <output for="1.3.2-03" class="block">pi-sum</output>
+  <p>
+    Again using <code>lambda</code>, we can write the <code>integral</code>
+    procedure without having to define the auxiliary procedure <code
+    >add-dx</code>:
+  </p>
+  <textarea name="1.3.2-04" data-extends="1.3.1-04">
+(define (integral f a b dx)
+  (* (sum f
+          (+ a (/ dx 2.0))
+          (lambda (x) (+ x dx))
+          b)
+     dx))</textarea>
+  <output for="1.3.2-04" class="block">integral</output>
+  <p>
+    In general, <code>lambda</code> is used to create procedures in the same
+    way as <code>define</code>, except that no name is specified for the
+    procedure:
+  </p>
+  <pre><code>(lambda (<em>&lt;formal-parameters&gt;</em>) <em
+>&lt;body&gt;</em>)</code></pre>
+  <p>
+    The resulting procedure is just as much a procedure as one that is created
+    using <code>define</code>. The only difference is that it has not been
+    associated with any name in the environment. In fact,
+  </p>
+  <textarea name="1.3.2-05">(define (plus4 x) (+ x 4))</textarea>
+  <output for="1.3.2-05" class="block">plus4</output>
+  <p>
+    is equivalent to
+  </p>
+  <textarea name="1.3.2-06">(define plus4 (lambda (x) (+ x 4)))</textarea>
+  <output for="1.3.2-06" class="block">plus4</output>
+  <p>
+    We can read a <code>lambda</code> expression as follows:
+  </p>
+  <pre><code>    (lambda             (x)             (+    x     4))
+        ↑                ↑               ↑    ↑     ↑
+ the procedure   of an argument x  that adds  x and 4</code></pre>
+  <p>
+    Like any expression that has a procedure as its value, a <code
+    >lambda</code> expression can be used as the operator in a combination such
+    as
+  </p>
+  <textarea name="1.3.2-07" data-extends="1.1.4-01">
+((lambda (x y z) (+ x y (square z))) 1 2 3)</textarea>
+  <output for="1.3.2-07" class="block">12</output>
+  <p>
+    or, more generally, in any context where we would normally use a procedure
+    name.<sup id="r1.53s"><a href="#r1.53d">53</a></sup>
+  </p>
+</section>
+
+<section id="ex1.5">
+  <h5><a href="#ex1.5">Using <code>let</code> to create local
+    variables</a></h5>
+  <p>
+    Another use of <code>lambda</code> is in creating local variables. We often
+    need local variables in our procedures other than those that have been
+    bound as formal parameters. For example, suppose we wish to compute the
+    function
+  </p>
+  <figure>
+    <math display="block">
+      <mrow>
+        <mi>f</mi><mo>&lpar;</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>&rpar;</mo>
+        <mo>=</mo>
+        <mi>x</mi><msup><mrow><mo>&lpar;</mo><mn>1</mn><mo>+</mo><mi>x</mi><mi
+        >y</mi><mo>&rpar;</mo></mrow><mn>2</mn></msup>
+        <mo>+</mo>
+        <mi>y</mi><mo>&lpar;</mo><mn>1</mn><mo>-</mo><mi>y</mi><mo>&rpar;</mo>
+        <mo>+</mo>
+        <mo>&lpar;</mo><mn>1</mn><mo>+</mo><mi>x</mi><mi>y</mi><mo>&rpar;</mo>
+        <mo>&lpar;</mo><mn>1</mn><mo>-</mo><mi>y</mi><mo>&rpar;</mo>
+      </mrow>
+    </math>
+  </figure>
+  <p>
+    which we could also express as
+  </p>
+  <figure>
+    <math display="block">
+      <mtable>
+        <mtr>
+          <mtd><mi>a</mi></mtd>
+          <mtd><mo>=</mo></mtd>
+          <mtd><mn>1</mn><mo>+</mo><mi>x</mi><mi>y</mi></mtd>
+        </mtr>
+        <mtr>
+          <mtd><mi>b</mi></mtd>
+          <mtd><mo>=</mo></mtd>
+          <mtd><mn>1</mn><mo>-</mo><mi>y</mi></mtd>
+        </mtr>
+        <mtr>
+          <mtd><mi>f</mi><mo>&lpar;</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo
+            >&rpar;</mo></mtd>
+          <mtd><mo>=</mo></mtd>
+          <mtd><mi>x</mi><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><mi
+            >y</mi><mi>b</mi><mo>+</mo><mi>a</mi><mi>b</mi></mtd>
+        </mtr>
+      </mtable>
+    </math>
+  </figure>
+  <p>
+    In writing a procedure to compute <math><mi>f</mi></math>, we would like to
+    include as local variables not only <math><mi>x</mi></math> and <math><mi
+    >y</mi></math> but also the names of intermediate quantities like <math><mi
+    >a</mi></math> and <math><mi>b</mi></math>. One way to accomplish this is
+    to use an auxiliary procedure to bind the local variables:
+  </p>
+  <textarea name="ex1.5-01" data-extends="1.1.4-01">
+(define (f x y)
+  (define (f-helper a b)
+    (+ (* x (square a))
+       (* y b)
+       (* a b)))
+  (f-helper (+ 1 (* x y))
+            (- 1 y)))</textarea>
+  <output for="ex1.5-01" class="block">f</output>
+  <p>
+    Of course, we could use a <code>lambda</code> expression to specify an
+    anonymous procedure for binding our local variables. The body of <code
+    >f</code> then becomes a single call to that procedure:
+  </p>
+  <textarea name="ex1.5-02" data-extends="1.1.4-01">
+(define (f x y)
+  ((lambda (a b)
+     (+ (* x (square a))
+        (* y b)
+        (* a b)))
+   (+ 1 (* x y))
+   (- 1 y)))</textarea>
+  <output for="ex1.5-02" class="block">f</output>
+  <p>
+    This construct is so useful that there is a special form called <code
+    >let</code> to make its use more convenient. Using <code>let</code>, the
+    <code>f</code> procedure could be written as
+  </p>
+  <textarea name="ex1.5-03" data-extends="1.1.4-01">
+(define (f x y)
+  (let ((a (+ 1 (* x y)))
+        (b (- 1 y)))
+    (+ (* x (square a))
+       (* y b)
+       (* a b))))</textarea>
+  <output for="ex1.5-03" class="block">f</output>
+  <p>
+    The general form of a <code>let</code> expression is
+  </p>
+  <pre><code>(let ((<em>&lt;var<sub>1</sub>&gt; &lt;exp<sub>1</sub>&gt;</em>)
+     (<em>&lt;var<sub>2</sub>&gt; &lt;exp<sub>2</sub>&gt;</em>)
+     ⋮
+     (<em>&lt;var<sub>n</sub>&gt; &lt;exp<sub>n</sub>&gt;</em>))
+  <em>&lt;body&gt;</em>)</code></pre>
+  <p>
+    which can be thought of as saying
+  </p>
+  <pre><code>let &lt;var<sub>1</sub>&gt; have the value &lt;exp<sub
+>1</sub>&gt; and
+    &lt;var<sub>2</sub>&gt; have the value &lt;exp<sub>2</sub>&gt; and
+    &lt;var<sub>n</sub>&gt; have the value &lt;exp<sub>n</sub>&gt;
+  in &lt;body&gt;</code></pre>
+  <p>
+    The first part of the <code>let</code> expression is a list of
+    name-expression pairs. When the <code>let</code> is evaluated, each name is
+    associated with the value of the corresponding expression. The body of the
+    <code>let</code> is evaluated with these names bound as local variables.
+    The way this happens is that the <code>let</code> expression is interpreted
+    as an alternate syntax for
+  </p>
+  <pre><code>((lambda (<em>&lt;var<sub>1</sub>&gt;</em> … <em>&lt;var<sub
+>n</sub>&gt;</em>)
+    <em>&lt;body&gt;</em>)
+ <em>&lt;exp<sub>1</sub>&gt;</em>
+ ⋮
+ <em>&lt;exp<sub>n</sub>&gt;</em>)</code></pre>
+  <p>
+    No new mechanism is required in the interpreter in order to provide local
+    variables. A <code>let</code> expression is simply syntactic sugar for the
+    underlying <code>lambda</code> application.
+  </p>
+  <p>
+    We can see from this equivalence that the scope of a variable specified by
+    a <code>let</code> expression is the body of the <code>let</code>. This
+    implies that:
+  </p>
+  <ul>
+    <li>
+      <p>
+        <code>Let</code> allows one to bind variables as locally as possible to
+        where they are to be used. For example, if the value of <code>x</code>
+        is 5, the value of the expression
+      </p>
+      <textarea name="ex1.5-04" hidden>(define x 5)</textarea>
+      <textarea name="ex1.5-05" data-extends="ex1.5-04">
+(+ (let ((x 3))
+     (+ x (* x 10)))
+   x)</textarea>
+      <p>
+        is <output for="ex1.5-05">38</output>. Here, the <code>x</code> in the
+        body of the <code>let</code> is 3, so the value of the <code>let</code>
+        expression is 33. On the other hand, the <code>x</code> that is the
+        second argument to the outermost <code>+</code> is still 5.
+      </p>
+    </li>
+    <li>
+      <p>
+        The variables’ values are computed outside the <code>let</code>. This
+        matters when the expressions that provide the values for the local
+        variables depend upon variables having the same names as the local
+        variables themselves. For example, if the value of <code>x</code> is 2,
+        the expression
+      </p>
+      <textarea name="ex1.5-06" hidden>(define x 2)</textarea>
+      <textarea name="ex1.5-07" data-extends="ex1.5-06">
+(let ((x 3)
+      (y (+ x 2)))
+  (* x y))</textarea>
+      <p>
+        will have the value <output for="ex1.5-07">12</output> because, inside
+        the body of the <code>let</code>, <code>x</code> will be 3 and <code
+        >y</code> will be 4 (which is the outer <code>x</code> plus 2).
+      </p>
+    </li>
+  </ul>
+  <p>
+    Sometimes we can use internal definitions to get the same effect as with
+    <code>let</code>. For example, we could have defined the procedure <code
+    >f</code> above as
+  </p>
+  <textarea name="ex1.5-08">
+(define (f x y)
+  (define a (+ 1 (* x y)))
+  (define b (- 1 y))
+  (+ (* x (square a))
+     (* y b)
+     (* a b)))</textarea>
+  <output for="ex1.5-08" class="block">f</output>
+  <p>
+    We prefer, however, to use <code>let</code> in situations like this and to
+    use internal define only for internal procedures.<sup id="r1.54s"><a
+    href="#r1.54d">54</a></sup>
+  </p>
+</section>
+
+<section id="e1.34">
+  <h5><a href="#e1.34">Exercise 1.34</a></h5>
+  <p>
+    Suppose we define the procedure
+  </p>
+  <textarea name="e1.34-01">
+(define (f g)
+  (g 2))</textarea>
+  <output for="e1.34-01" class="block">f</output>
+  <p>
+    Then we have
+  </p>
+  <textarea name="e1.34-02" data-extends="1.1.4-01 e1.34-01">
+(f square)
+(f (lambda (z) (* z (+ z 1))))</textarea>
+  <output for="e1.34-02" class="block">4
+6</output>
+  <p>
+    What happens if we (perversely) ask the interpreter to evaluate the
+    combination <code>(f f)</code>? Explain.
+  </p>
+  <textarea name="e1.34-03" data-extends="e1.34-02"></textarea>
+  <output for="e1.34-03" class="block">&ZeroWidthSpace;</output>
+</section>
+
+<section id="s1.3.3">
+  <h4><a href="#s1.3.3">1.3.3 Procedures as General Methods</a></h4>
+  <p>
+    We introduced compound procedures in section <a href="#s1.1.4">1.1.4</a> as
+    a mechanism for abstracting patterns of numerical operations so as to make
+    them independent of the particular numbers involved. With higher-order
+    procedures, such as the <code>integral</code> procedure of section <a
+    href="#s1.3.1">1.3.1</a>, we began to see a more powerful kind of
+    abstraction: procedures used to express general methods of computation,
+    independent of the particular functions involved. In this section we
+    discuss two more elaborate examples—general methods for finding zeros and
+    fixed points of functions—and show how these methods can be expressed
+    directly as procedures.
+  </p>
+</section>
+
+<section id="ex1.6">
+  <h5><a href="#ex1.6">Finding roots of equations by the half-interval
+    method</a></h5>
+  <p>
+    The <em>half-interval method</em> is a simple but powerful technique for
+    finding roots of an equation <math><mi>f</mi><mo>(</mo><mi>x</mi><mo
+    >)</mo><mo>=</mo><mn>0</mn></math>, where <math><mi>f</mi></math> is a
+    continuous function. The idea is that, if we are given points <math><mi
+    >a</mi></math> and <math><mi>b</mi></math> such that <math><mi>f</mi><mo
+    >(</mo><mi>a</mi><mo>)</mo><mo>&lt;</mo><mn>0</mn><mo>&lt;</mo><mi
+    >f</mi><mo>(</mo><mi>b</mi><mo>)</mo></math>, then <math><mi>f</mi></math>
+    must have at least one zero between <math><mi>a</mi></math> and <math><mi
+    >b</mi></math>. To locate a zero, let <math><mi>x</mi></math> be the
+    average of <math><mi>a</mi></math> and <math><mi>b</mi></math> and compute
+    <math><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></math>. If <math><mi
+    >f</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>&gt;</mo><mn>0</mn></math>, then
+    <math><mi>f</mi></math> must have a zero between <math><mi>a</mi></math>
+    and <math><mi>x</mi></math>. If <math><mi>f</mi><mo>(</mo><mi>x</mi><mo
+    >)</mo><mo>&lt;</mo><mn>0</mn></math>, then <math><mi>f</mi></math> must
+    have a zero between <math><mi>x</mi></math> and <math><mi>b</mi></math>.
+    Continuing in this way, we can identify smaller and smaller intervals on
+    which <math><mi>f</mi></math> must have a zero. When we reach a point where
+    the interval is small enough, the process stops. Since the interval of
+    uncertainty is reduced by half at each step of the process, the number of
+    steps required grows as <math><mi>θ</mi><mo>(</mo><mtext>log</mtext><mo
+    >(</mo><mi>L</mi><mo>/</mo><mi>T</mi><mo>)</mo><mo>)</mo></math>, where
+    <math><mi>L</mi></math> is the length of the original interval and
+    <math><mi>T</mi></math> is the error tolerance (that is, the size of the
+    interval we will consider “small enough”). Here is a procedure that
+    implements this strategy:
+  </p>
+  <textarea name="ex1.6-01" hidden>
+(define (negative? x) (&lt; x 0))
+(define (positive? x) (&gt; x 0))</textarea>
+  <textarea name="ex1.6-02" data-extends="1.1.7-03 ex1.6-01 ex1.6-03">
+(define (search f neg-point pos-point)
+  (let ((midpoint (average neg-point pos-point)))
+    (if (close-enough? neg-point pos-point)
+        midpoint
+        (let ((test-value (f midpoint)))
+          (cond ((positive? test-value)
+                 (search f neg-point midpoint))
+                ((negative? test-value)
+                 (search f midpoint pos-point))
+                (else midpoint))))))</textarea>
+  <output for="ex1.6-02" class="block">search</output>
+  <p>
+    We assume that we are initially given the function <math><mi>f</mi></math>
+    together with points at which its values are negative and positive. We
+    first compute the midpoint of the two given points. Next we check to see if
+    the given interval is small enough, and if so we simply return the midpoint
+    as our answer. Otherwise, we compute as a test value the value of <math><mi
+    >f</mi></math> at the midpoint. If the test value is positive, then we
+    continue the process with a new interval running from the original negative
+    point to the midpoint. If the test value is negative, we continue with the
+    interval from the midpoint to the positive point. Finally, there is the
+    possibility that the test value is 0, in which case the midpoint is itself
+    the root we are searching for.
+  </p>
+  <p>
+    To test whether the endpoints are “close enough” we can use a procedure
+    similar to the one used in section <a href="#s1.1.7">1.1.7</a> for
+    computing square roots:<sup id="r1.55s"><a href="#r1.55d">55</a></sup>
+  </p>
+  <textarea name="ex1.6-03" data-extends="1.1.6-03">
+(define (close-enough? x y)
+  (&lt; (abs (- x y)) 0.001))</textarea>
+  <output for="ex1.6-03" class="block">close-enough?</output>
+  <p>
+    <code>Search</code> is awkward to use directly, because we can accidentally
+    give it points at which <math><mi>f</mi></math>’s values do not have the
+    required sign, in which case we get a wrong answer. Instead we will use
+    <code>search</code> via the following procedure, which checks to see which
+    of the endpoints has a negative function value and which has a positive
+    value, and calls the search procedure accordingly. If the function has the
+    same sign on the two given points, the <code>half-interval</code> method
+    cannot be used, in which case the procedure signals an error.<sup
+    id="r1.56s"><a href="#r1.56d">56</a></sup>
+  </p>
+  <textarea name="ex1.6-04" data-extends="ex1.6-02">
+(define (half-interval-method f a b)
+  (let ((a-value (f a))
+        (b-value (f b)))
+    (cond ((and (negative? a-value) (positive? b-value))
+           (search f a b))
+          ((and (negative? b-value) (positive? a-value))
+           (search f b a))
+          (else
+           (error "Values are not of opposite sign" a b)))))</textarea>
+  <output for="ex1.6-04">half-interval-method</output>
+  <p>
+    The following example uses the <code>half-interval</code> method to
+    approximate <math><mi>π</mi></math> as the root between 2 and 4 of <math
+    ><mtext>sin </mtext><mi>x</mi><mo>=</mo><mn>0</mn></math>:
+  </p>
+  <textarea name="ex1.6-05" data-extends="ex1.6-04">
+(half-interval-method sin 2.0 4.0)</textarea>
+  <output for="ex1.6-05" class="block">3.14111328125</output>
+  <p>
+    Here is another example, using the half-interval method to search for a
+    root of the equation <math><msup><mi>x</mi><mn>3</mn></msup><mo>-</mo><mn
+    >2</mn><mi>x</mi><mo>-</mo><mn>3</mn><mo>=</mo><mo>0</mo></math> between 1
+    and 2:
+  </p>
+  <textarea name="ex1.6-06" data-extends="ex1.6-04">
+(half-interval-method (lambda (x) (- (* x x x) (* 2 x) 3))
+                      1.0
+                      2.0)</textarea>
+  <output for="ex1.6-06" class="block">1.89306640625</output>
+</section>
+
+<section id="ex1.7">
+  <h5><a href="#ex1.7">Finding fixed points of functions</a></h5>
+  <p>
+    A number <math><mi>x</mi></math> is called a fixed point of a function
+    <math><mi>f</mi></math> if <math><mi>x</mi></math> satisfies the equation
+    <math><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>=</mo><mi>x</mi></math>.
+    For some functions <math><mi>f</mi></math> we can locate a fixed point by
+    beginning with an initial guess and applying <math><mi>f</mi></math>
+    repeatedly,
+  </p>
+  <figure>
+    <math display="block">
+      <mrow>
+        <mi>f</mi><mo>&lpar;</mo><mi>x</mi><mo>&rpar;</mo><mo>,</mo>
+        <mi>f</mi><mo>&lpar;</mo><mi>f</mi><mo>&lpar;</mo><mi>x</mi><mo
+        >&rpar;</mo><mo>&rpar;</mo><mo>,</mo>
+        <mi>f</mi><mo>&lpar;</mo><mi>f</mi><mo>&lpar;</mo><mi>f</mi><mo
+        >&lpar;</mo><mi>x</mi><mo>&rpar;</mo><mo>&rpar;</mo><mo>&rpar;</mo><mo
+        >…</mo>
+      </mrow>
+    </math>
+  </figure>
+  <p>
+    until the value does not change very much. Using this idea, we can devise a
+    procedure <code>fixed-point</code> that takes as inputs a function and an
+    initial guess and produces an approximation to a fixed point of the
+    function. We apply the function repeatedly until we find two successive
+    values whose difference is less than some prescribed tolerance:
+  </p>
+  <textarea name="ex1.7-01" data-extends="ex1.6-03">
+(define tolerance 0.00001)
+(define (fixed-point f first-guess)
+  (define (close-enough? v1 v2)
+    (&lt; (abs (- v1 v2)) tolerance))
+  (define (try guess)
+    (let ((next (f guess)))
+      (if (close-enough? guess next)
+          next
+          (try next))))
+  (try first-guess))</textarea>
+  <output for="ex1.7-01" class="block">tolerance
+fixed-point</output>
+  <p>
+    For example, we can use this method to approximate the fixed point of the
+    cosine function, starting with 1 as an initial approximation:<sup
+    id="r1.57s"><a href="#r1.57d">57</a></sup>
+  </p>
+  <textarea name="ex1.7-02" data-extends="ex1.7-01">
+(fixed-point cos 1.0)</textarea>
+  <output for="ex1.7-02" class="block">0.7390822985224024</output>
+  <p>
+    Similarly, we can find a solution to the equation <math><mi>y</mi><mo
+    >=</mo><mtext>sin </mtext><mi>y</mi><mo>+</mo><mtext>cos </mtext><mi
+    >y</mi></math>:
+  </p>
+  <textarea name="ex1.7-03" data-extends="ex1.7-01">
+(fixed-point (lambda (y) (+ (sin y) (cos y)))
+             1.0)</textarea>
+  <output for="ex1.7-03" class="block">1.2587315962971173</output>
+  <p>
+    The fixed-point process is reminiscent of the process we used for finding
+    square roots in section <a href="#s1.1.7">1.1.7</a>. Both are based on the
+    idea of repeatedly improving a guess until the result satisfies some
+    criterion. In fact, we can readily formulate the square-root computation as
+    a fixed-point search. Computing the square root of some number <math><mi
+    >x</mi></math> requires finding a <math><mi>y</mi></math> such that
+    <math><msup><mi>y</mi><mn>2</mn></msup><mo>=</mo><mi>x</mi></math>. Putting 
+    this equation into the equivalent form <math><mi>y</mi><mo>=</mo><mi
+    >x</mi><mo>/</mo><mi>y</mi></math>, we recognize that we are looking for a
+    fixed point of the function<sup id="r1.58s"><a href="#r1.58d">58</a></sup>
+    <math><mi>y</mi><mo>&RightTeeArrow;</mo><mi>x</mi><mo>/</mo><mi
+    >y</mi></math>, and we can therefore try to compute square roots as
+  </p>
+  <textarea name="ex1.7-04" data-extends="ex1.7-01">
+(define (sqrt x)
+  (fixed-point (lambda (y) (/ x y))
+               1.0))</textarea>
+  <output for="ex1.7-04" class="block">sqrt</output>
+  <p>
+    Unfortunately, this fixed-point search does not converge. Consider an
+    initial guess <math><msub><mi>y</mi><mn>1</mn></msub></math>. The next
+    guess is <math><msub><mi>y</mi><mn>2</mn></msub><mo>=</mo><mi>x</mi><mo
+    >/</mo><msub><mi>y</mi><mn>1</mn></msub></math> and the next guess is
+    <math><msub><mi>y</mi><mn>3</mn></msub><mo>=</mo><mi>x</mi><mo
+    >/</mo><mo>(</mo><mi>x</mi><mo>/</mo><msub><mi>y</mi><mn>1</mn></msub><mo
+    >)</mo><mo>=</mo><msub><mi>y</mi><mn>1</mn></msub></math>. This results in
+    an infinite loop in which the two guesses <math><msub><mi>y</mi><mn
+    >1</mn></msub></math> and <math><msub><mi>y</mi><mn>2</mn></msub></math>
+    repeat over and over, oscillating about the answer.
+  </p>
+  <p>
+    One way to control such oscillations is to prevent the guesses from
+    changing so much. Since the answer is always between our guess <math><mi
+    >y</mi></math> and <math><mi>x</mi><mo>/</mo><mi>y</mi></math>, we can make
+    a new guess that is not as far from <math><mi>y</mi></math> as <math><mi
+    >x</mi><mo>/</mo><mi>y</mi></math> by averaging <math><mi>y</mi></math>
+    with <math><mi>x</mi><mo>/</mo><mi>y</mi></math>, so that the next guess
+    after <math><mi>y</mi></math> is <math><mo>(</mo><mn>1</mn><mo>/</mo><mn
+    >2</mn><mo>)</mo><mo>(</mo><mi>y</mi><mo>+</mo><mi>x</mi><mo>/</mo><mi
+    >y</mi><mo>)</mo></math> instead of <math><mi>x</mi><mo>/</mo><mi
+    >y</mi></math>. The process of making such a sequence of guesses is simply
+    the process of looking for a fixed point of <math><mi>y</mi><mo
+    >&RightTeeArrow;</mo><mo>(</mo><mn>1</mn><mo>/</mo><mn>2</mn><mo>)</mo><mo
+    >(</mo><mi>y</mi><mo>+</mo><mi>x</mi><mo>/</mo><mi>y</mi><mo>)</mo></math>:
+  </p>
+  <textarea name="ex1.7-05" data-extends="1.1.7-03 ex1.7-01">
+(define (sqrt x)
+  (fixed-point (lambda (y) (average y (/ x y)))
+               1.0))</textarea>
+  <output for="ex1.7-05" class="block">sqrt</output>
+  <p>
+    (Note that <math><mi>y</mi><mo>=</mo><mo>(</mo><mn>1</mn><mo>/</mo><mn
+    >2</mn><mo>)</mo><mo>(</mo><mi>y</mi><mo>+</mo><mi>x</mi><mo>/</mo><mi
+    >y</mi><mo>)</mo></math> is a simple transformation of the equation
+    <math><mi>y</mi><mo>=</mo><mi>x</mi><mo>/</mo><mi>y</mi></math>; to derive
+    it, add <math><mi>y</mi></math> to both sides of the equation and divide by
+    2.)
+  </p>
+  <p>
+    With this modification, the square-root procedure works. In fact, if we
+    unravel the definitions, we can see that the sequence of approximations to
+    the square root generated here is precisely the same as the one generated
+    by our original square-root procedure of section <a href="#s1.1.7"
+    >1.1.7</a>. This approach of averaging successive approximations to a
+    solution, a technique we that we call <em>average damping</em>, often aids
+    the convergence of fixed-point searches.
+  </p>
+</section>
+
+<section id="e1.35">
+  <h5><a href="#e1.35">Exercise 1.35</a></h5>
+  <p>
+    Show that the golden ratio φ (section <a href="#s1.2.2">1.2.2</a>) is a
+    fixed point of the transformation <math><mi>x</mi><mo
+    >&RightTeeArrow;</mo><mn>1</mn><mo>+</mo><mn>1</mn><mo>/</mo><mi
+    >x</mi></math>, and use this fact to compute φ by means of the <code
+    >fixed-point</code> procedure.
+  </p>
+  <textarea name="e1.35-01" data-extends="ex1.7-01"></textarea>
+  <output for="e1.35-01" class="block">&ZeroWidthSpace;</output>
+</section>
+
+<section id="e1.36">
+  <h5><a href="#e1.36">Exercise 1.36</a></h5>
+  <p>
+    Modify <code>fixed-point</code> so that it prints the sequence of
+    approximations it generates, using the <code>newline</code> and <code
+    >display</code> primitives shown in exercise <a href="#e1.22">1.22</a>.
+    Then find a solution to <math><msup><mi>x</mi><mi>x</mi></msup><mo
+    >=</mo><mn>1000</mn></math> by finding a fixed point of <math><mi>x</mi><mo
+    >&RightTeeArrow;</mo><mtext>log</mtext><mo>(</mo><mn>1000</mn><mo>)</mo><mo
+    >/</mo><mtext>log</mtext><mo>(</mo><mi>x</mi><mo>)</mo></math>. (Use
+    Scheme’s primitive <code>log</code> procedure, which computes natural
+    logarithms.) Compare the number of steps this takes with and without
+    average damping. (Note that you cannot start <code>fixed-point</code> with
+    a guess of 1, as this would cause division by <math><mtext>log</mtext><mo
+    >(</mo><mn>1</mn><mo>)</mo><mo>=</mo><mn>0</mn></math>.)
+  </p>
+  <textarea name="e1.36-01" data-extends="ex1.6-03">
+(define tolerance 0.00001)
+(define (fixed-point f first-guess)
+  (define (close-enough? v1 v2)
+    (&lt; (abs (- v1 v2)) tolerance))
+  (define (try guess)
+    (let ((next (f guess)))
+      (if (close-enough? guess next)
+          next
+          (try next))))
+  (try first-guess))</textarea>
+  <output for="e1.36-01" class="block">tolerance
+fixed-point</output>
 </section>
 </section>
 </main>

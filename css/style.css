@@ -10,8 +10,8 @@
 }
 
 @font-face {
-  font-family: 'Barlow Condensed';
-  src: url('../fonts/BarlowCondensed-Thin.ttf') format('truetype');
+  font-family: 'Lora';
+  src: url('../fonts/Lora-Regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -36,11 +36,14 @@ body {
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: 'Lora', serif;
+  font-weight: normal;
   margin: 0;
+  text-align: left;
+  line-height: 1.2em;
 }
 
-h1 { font-size: 2.0em; }
+h1 { font-size: 2.0em; margin-top: 24px; }
 h2 { font-size: 1.7em; }
 h3 { font-size: 1.5em; }
 h4 { font-size: 1.4em; }
@@ -67,6 +70,8 @@ textarea {
   padding-left: 2ch;
   border-left: 2px solid var(--color-accent-1);
   box-sizing: border-box;
+  overflow-x: scroll;
+  white-space: nowrap;
 }
 
 output {
