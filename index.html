@@ -1056,6 +1056,7 @@ circumference
     language as
   </p>
   <textarea name="1.1.4-01">(define (square x) (* x x))</textarea>
+  <output for="1.1.4-01" class="block">square</output>
   <p>
     We can understand this in the following way:
   </p>
@@ -1695,7 +1696,7 @@ test</output>
     purposes, we are done; if not, we must repeat the process with an improved
     guess. We write this basic strategy as a procedure:
   </p>
-  <textarea name="1.1.7-01" data-extends="1.1.4-01 1.1.6-03">
+  <textarea name="1.1.7-01" data-extends="1.1.7-02 1.1.7-04">
 (define (sqrt-iter guess x)
   (if (good-enough? guess x)
       guess
@@ -1706,7 +1707,7 @@ test</output>
     A guess is improved by averaging it with the quotient of the radicand and
     the old guess:
   </p>
-  <textarea name="1.1.7-02" data-extends="1.1.7-01 1.1.7-03">
+  <textarea name="1.1.7-02" data-extends="1.1.7-03">
 (define (improve guess x)
   (average guess (/ x guess)))</textarea>
   <output for="1.1.7-02" class="block">improve</output>
@@ -1725,7 +1726,7 @@ test</output>
     predetermined tolerance (here 0.001):<sup id="r1.22s"><a href="#r1.22d"
     >22</a></sup>
   </p>
-  <textarea name="1.1.7-04" data-extends="1.1.7-03">
+  <textarea name="1.1.7-04" data-extends="1.1.4-01 1.1.6-03">
 (define (good-enough? guess x)
   (&lt; (abs (- (square guess) x)) 0.001))</textarea>
   <output for="1.1.7-04" class="block">good-enough?</output>
@@ -1734,7 +1735,7 @@ test</output>
     that the square root of any number is 1:<sup id="r1.23s"><a href="#r1.23d"
     >23</a></sup>
   </p>
-  <textarea name="1.1.7-05" data-extends="1.1.7-04">
+  <textarea name="1.1.7-05" data-extends="1.1.7-01 1.1.7-04">
 (define (sqrt x)
   (sqrt-iter 1.0 x))</textarea>
   <output for="1.1.7-05" class="block">sqrt</output>
@@ -1776,6 +1777,7 @@ test</output>
 (define (new-if predicate then-clause else-clause)
   (cond (predicate then-clause)
         (else else-clause)))</textarea>
+  <output for="e1.6-01" class="block">new-if</output>
   <p>
     Eva demonstrates the program for Alyssa:
   </p>
@@ -1789,7 +1791,7 @@ test</output>
     Delighted, Alyssa uses <code>new-if</code> to rewrite the
     <code>square-root</code> program:
   </p>
-  <textarea name="e1.6-03" data-extends="1.1.7-04 e1.6-01">
+  <textarea name="e1.6-03" data-extends="1.1.7-02 1.1.7-04 e1.6-01">
 (define (sqrt-iter guess x)
   (new-if (good-enough? guess x)
           guess
@@ -1816,11 +1818,13 @@ test</output>
     guess. Design a <code>square-root</code> procedure that uses this kind of
     end test. Does this work better for small and large numbers?
   </p>
-  <textarea name="e1.7-01" data-extends="1.1.7-05">
+  <textarea name="e1.7-01" data-extends="1.1.4-01 1.1.6-03 1.1.7-02">
 (define (sqrt-iter guess x)
   ???)
 (define (good-enough? ???)
   ???)
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
 (sqrt 9)</textarea>
   <output for="e1.7-01" class="block">&ZeroWidthSpace;</output>
 </section>
@@ -1848,7 +1852,7 @@ test</output>
     abstraction of these <code>square-root</code> and <code>cube-root</code>
     procedures.)
   </p>
-  <textarea name="e1.8-01"></textarea>
+  <textarea name="e1.8-01" data-extends="1.1.6-03 1.1.7-03"></textarea>
   <output for="e1.8-01" class="block">&ZeroWidthSpace;</output>
 </section>
 
@@ -1996,7 +2000,7 @@ test</output>
     like to control the use of names. The existing program consists of separate
     procedures:
   </p>
-  <textarea name="1.1.8-01" data-extends="1.1.7-03">
+  <textarea name="1.1.8-01" data-extends="1.1.4-01 1.1.6-03 1.1.7-03">
 (define (sqrt x)
   (sqrt-iter 1.0 x))
 (define (sqrt-iter guess x)
@@ -2030,7 +2034,7 @@ improve</output>
     procedure to have internal definitions that are local to that procedure.
     For example, in the <code>square-root</code> problem we can write
   </p>
-  <textarea name="1.1.8-02" data-extends="1.1.7-03">
+  <textarea name="1.1.8-02" data-extends="1.1.4-01 1.1.6-03 1.1.7-03">
 (define (sqrt x)
   (define (good-enough? guess x)
     (&lt; (abs (- (square guess) x)) 0.001))
@@ -2057,7 +2061,7 @@ improve</output>
     enclosing procedure <code>sqrt</code> is called. This discipline is called
     <em>lexical scoping</em>.<sup id="r1.27s"><a href="#r1.27d">27</a></sup>
   </p>
-  <textarea name="1.1.8-03" data-extends="1.1.7-03">
+  <textarea name="1.1.8-03" data-extends="1.1.4-01 1.1.6-03 1.1.7-03">
 (define (sqrt x)
   (define (good-enough? guess)
     (&lt; (abs (- (square guess) x)) 0.001))
@@ -2605,7 +2609,8 @@ fact-iter</output>
 (A 3 3)</textarea>
   <output for="e1.10-02" class="block">&ZeroWidthSpace;</output>
   <p>
-    Consider the following procedures, where A is the procedure defined above:
+    Consider the following procedures, where <code>A</code> is the procedure
+    defined above:
   </p>
   <textarea name="e1.10-03" data-extends="e1.10-01">
 (define (f n) (A 0 n))
