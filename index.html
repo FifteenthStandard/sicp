@@ -34,6 +34,199 @@
   </address>
 </header>
 
+<nav>
+  <h2>Contents</h2>
+  <menu>
+    <li><a href="#s0.1">Foreward</a></li>
+    <li><a href="#s0.2">Preface to the Second Edition</a></li>
+    <li><a href="#s0.3">Preface to the First Edition</a></li>
+    <li><a href="#s0.4">Acknowledgements</a></li>
+    <li><a href="#s1">1 Building Abstractions with Procedures</a>
+      <menu>
+        <li><a href="#s1.1">1.1 The Elements of Programming</a>
+          <menu>
+            <li><a href="#s1.1.1">1.1.1 Expressions</a></li>
+            <li><a href="#s1.1.2">1.1.2 Naming and the Environment</a></li>
+            <li><a href="#s1.1.3">1.1.3 Evaluating Combinations</a></li>
+            <li><a href="#s1.1.4">1.1.4 Compound Procedures</a></li>
+            <li><a href="#s1.1.5">1.1.5 The Substitution Model for Procedure Application</a></li>
+            <li><a href="#s1.1.6">1.1.6 Conditional Expressions and Predicates</a></li>
+            <li><a href="#s1.1.7">1.1.7 Example: Square Roots by Newton’s Method</a></li>
+            <li><a href="#s1.1.8">1.1.8 Procedures as Black-Box Abstractions</a></li>
+          </menu></li>
+        <li><a href="#s1.2">1.2 Procedures and the Processes They Generate</a>
+          <menu>
+            <li><a href="#s1.2.1">1.2.1 Linear Recursion and Iteration</a></li>
+            <li><a href="#s1.2.2">1.2.2 Tree Recursion</a></li>
+            <li><a href="#s1.2.3">1.2.3 Orders of Growth</a></li>
+            <li><a href="#s1.2.4">1.2.4 Exponentiation</a></li>
+            <li><a href="#s1.2.5">1.2.5 Greatest Common Divisors</a></li>
+            <li><a href="#s1.2.6">1.2.6 Example: Testing for Primality</a></li>
+          </menu></li>
+        <li><a href="#s1.3">1.3 Formulating Abstractions with Higher-Order Procedures</a>
+          <menu>
+            <li><a href="#s1.3.1">1.3.1 Procedures as Arguments</a></li>
+            <li><a href="#s1.3.2">1.3.2 Constructing Procedures Using <code>Lambda</code></a></li>
+            <!-- <li><a href="#s1.3.3">1.3.3 Procedures as General Methods</a></li> -->
+            <!-- <li><a href="#s1.3.4">1.3.4 Procedures as Returned Values</a></li> -->
+          </menu></li>
+      </menu>
+    </li>
+    <!-- <li><a href="#s2">2 Building Abstractions with Data</a>
+      <menu>
+        <li><a href="#s2.1">2.1 Introduction to Data Abstraction</a>
+          <menu>
+            <li><a href="#s2.1.1">2.1.1 Example: Arithmetic Operations for Rational Numbers</a></li>
+            <li><a href="#s2.1.2">2.1.2 Abstraction Barriers</a></li>
+            <li><a href="#s2.1.3">2.1.3 What Is Meant by Data?</a></li>
+            <li><a href="#s2.1.4">2.1.4 Extended Exercise: Interval Arithmetic</a></li>
+          </menu></li>
+        <li><a href="#s2.2">2.2 Hierarchical Data and the Closure Property</a>
+          <menu>
+            <li><a href="#s2.2.1">2.2.1 Representing Sequences</a></li>
+            <li><a href="#s2.2.2">2.2.2 Hierarchical Structures</a></li>
+            <li><a href="#s2.2.3">2.2.3 Sequences as Conventional Interfaces</a></li>
+            <li><a href="#s2.2.4">2.2.4 Example: A Picture Language</a></li>
+          </menu></li>
+        <li><a href="#s2.3">2.3 Symbolic Data</a>
+          <menu>
+            <li><a href="#s2.3.1">2.3.1 Quotation</a></li>
+            <li><a href="#s2.3.2">2.3.2 Example: Symbolic Differentiation</a></li>
+            <li><a href="#s2.3.3">2.3.3 Example: Representing Sets</a></li>
+            <li><a href="#s2.3.4">2.3.4 Example: Huffman Encoding Trees</a></li>
+          </menu></li>
+        <li><a href="#s2.4">2.4 Multiple Representations for Abstract Data</a>
+          <menu>
+            <li><a href="#s2.4.1">2.4.1 Representations for Complex Numbers</a></li>
+            <li><a href="#s2.4.2">2.4.2 Tagged data</a></li>
+            <li><a href="#s2.4.3">2.4.3 Data-Directed Programming and Additivity</a></li>
+          </menu></li>
+        <li><a href="#s2.5">2.5 Systems with Generic Operations</a>
+          <menu>
+            <li><a href="#s2.5.1">2.5.1 Generic Arithmetic Operations</a></li>
+            <li><a href="#s2.5.2">2.5.2 Combining Data of Different Types</a></li>
+            <li><a href="#s2.5.3">2.5.3 Example: Symbolic Algebra</a></li>
+          </menu></li>
+      </menu>
+    </li> -->
+    <!-- <li><a href="#s3">3 Modularity, Objects, and State</a>
+      <menu>
+        <li><a href="#s3.1">3.1 Assignment and Local State</a>
+          <menu>
+            <li><a href="#s3.1.1">3.1.1 Local State Variables</a></li>
+            <li><a href="#s3.1.2">3.1.2 The Benefits of Introducing Assignment</a></li>
+            <li><a href="#s3.1.3">3.1.3 The Costs of Introducing Assignment</a></li>
+          </menu></li>
+        <li><a href="#s3.2">3.2 The Environment Model of Evaluation</a>
+          <menu>
+            <li><a href="#s3.2.1">3.2.1 The Rules for Evaluation</a></li>
+            <li><a href="#s3.2.2">3.2.2 Applying Simple Procedures</a></li>
+            <li><a href="#s3.2.3">3.2.3 Frames as the Repository of Local State</a></li>
+            <li><a href="#s3.2.4">3.2.4 Internal Definitions</a></li>
+          </menu></li>
+        <li><a href="#s3.3">3.3 Modeling with Mutable Data</a>
+          <menu>
+            <li><a href="#s3.3.1">3.3.1 Mutable List Structure</a></li>
+            <li><a href="#s3.3.2">3.3.2 Representing Queues</a></li>
+            <li><a href="#s3.3.3">3.3.3 Representing Tables</a></li>
+            <li><a href="#s3.3.4">3.3.4 A Simulator for Digital Circuits</a></li>
+            <li><a href="#s3.3.5">3.3.5 Propagation of Constraints</a></li>
+          </menu></li>
+        <li><a href="#s3.4">3.4 Concurrency: Time Is of the Essence</a>
+          <menu>
+            <li><a href="#s3.4.1">3.4.1 The Nature of Time in Concurrent Systems</a></li>
+            <li><a href="#s3.4.2">3.4.2 Mechanisms for Controlling Concurrency</a></li>
+          </menu></li>
+        <li><a href="#s3.5">3.5 Streams</a>
+          <menu>
+            <li><a href="#s3.5.1">3.5.1 Streams Are Delayed Lists</a></li>
+            <li><a href="#s3.5.2">3.5.2 Infinite Streams</a></li>
+            <li><a href="#s3.5.3">3.5.3 Exploiting the Stream Paradigm</a></li>
+            <li><a href="#s3.5.4">3.5.4 Streams and Delayed Evaluation</a></li>
+            <li><a href="#s3.5.5">3.5.5 Modularity of Functional Programs and Modularity of Objects</a></li>
+          </menu></li>
+      </menu>
+    </li> -->
+    <!-- <li><a href="#s4">4 Metalinguistic Abstraction</a>
+      <menu>
+        <li><a href="#s4.1">4.1 The Metacircular Evaluator</a>
+          <menu>
+            <li><a href="#s4.1.1">4.1.1 The Core of the Evaluator</a></li>
+            <li><a href="#s4.1.2">4.1.2 Representing Expressions</a></li>
+            <li><a href="#s4.1.3">4.1.3 Evaluator Data Structures</a></li>
+            <li><a href="#s4.1.4">4.1.4 Running the Evaluator as a Program</a></li>
+            <li><a href="#s4.1.5">4.1.5 Data as Programs</a></li>
+            <li><a href="#s4.1.6">4.1.6 Internal Definitions</a></li>
+            <li><a href="#s4.1.7">4.1.7 Separating Syntactic Analysis from Execution</a></li>
+          </menu></li>
+        <li><a href="#s4.2">4.2 Variations on a Scheme—Lazy Evaluation</a>
+          <menu>
+            <li><a href="#s4.2.1">4.2.1 Normal Order and Applicative Order</a></li>
+            <li><a href="#s4.2.2">4.2.2 An Interpreter with Lazy Evaluation</a></li>
+            <li><a href="#s4.2.3">4.2.3 Streams as Lazy Lists</a></li>
+          </menu></li>
+        <li><a href="#s4.3">4.3 Variations on a Scheme—Nondeterministic Computing</a>
+          <menu>
+            <li><a href="#s4.3.1">4.3.1 Amb and Search</a></li>
+            <li><a href="#s4.3.2">4.3.2 Examples of Nondeterministic Programs</a></li>
+            <li><a href="#s4.3.3">4.3.3 Implementing the <code>Amb</code> Evaluator</a></li>
+          </menu></li>
+        <li><a href="#s4.4">4.4 Logic Programming</a>
+          <menu>
+            <li><a href="#s4.4.1">4.4.1 Deductive Information Retrieval</a></li>
+            <li><a href="#s4.4.2">4.4.2 How the Query System Works</a></li>
+            <li><a href="#s4.4.3">4.4.3 Is Logic Programming Mathematical Logic?</a></li>
+            <li><a href="#s4.4.4">4.4.4 Implementing the Query System</a></li>
+          </menu></li>
+      </menu>
+    </li> -->
+    <!-- <li><a href="#s5">5 Computing with Register Machines</a>
+      <menu>
+        <li><a href="#s5.1">5.1 Designing Register Machines</a>
+          <menu>
+            <li><a href="#s5.1.1">5.1.1 A Language for Describing Register Machines</a></li>
+            <li><a href="#s5.1.2">5.1.2 Abstraction in Machine Design</a></li>
+            <li><a href="#s5.1.3">5.1.3 Subroutines</a></li>
+            <li><a href="#s5.1.4">5.1.4 Using a Stack to Implement Recursion</a></li>
+            <li><a href="#s5.1.5">5.1.5 Instruction Summary</a></li>
+          </menu></li>
+        <li><a href="#s5.2">5.2 A Register-Machine Simulator</a>
+          <menu>
+            <li><a href="#s5.2.1">5.2.1 The Machine Model</a></li>
+            <li><a href="#s5.2.2">5.2.2 The Assembler</a></li>
+            <li><a href="#s5.2.3">5.2.3 Generating Execution Procedures for Instructions</a></li>
+            <li><a href="#s5.2.4">5.2.4 Monitoring Machine Performance</a></li>
+          </menu></li>
+        <li><a href="#s5.3">5.3 Storage Allocation and Garbage Collection</a>
+          <menu>
+            <li><a href="#s5.3.1">5.3.1 Memory as Vectors</a></li>
+            <li><a href="#s5.3.2">5.3.2 Maintaining the Illusion of Infinite Memory</a></li>
+          </menu></li>
+        <li><a href="#s5.4">5.4 The Explicit-Control Evaluator</a>
+          <menu>
+            <li><a href="#s5.4.1">5.4.1 The Core of the Explicit-Control Evaluator</a></li>
+            <li><a href="#s5.4.2">5.4.2 Sequence Evaluation and Tail Recursion</a></li>
+            <li><a href="#s5.4.3">5.4.3 Conditionals, Assignments, and Definitions</a></li>
+            <li><a href="#s5.4.4">5.4.4 Running the Evaluator</a></li>
+          </menu></li>
+        <li><a href="#s5.5">5.5 Compilation</a>
+          <menu>
+            <li><a href="#s5.5.1">5.5.1 Structure of the Compiler</a></li>
+            <li><a href="#s5.5.2">5.5.2 Compiling Expressions</a></li>
+            <li><a href="#s5.5.3">5.5.3 Compiling Combinations</a></li>
+            <li><a href="#s5.5.4">5.5.4 Combining Instruction Sequences</a></li>
+            <li><a href="#s5.5.5">5.5.5 An Example of Compiled Code</a></li>
+            <li><a href="#s5.5.6">5.5.6 Lexical Addressing</a></li>
+            <li><a href="#s5.5.7">5.5.7 Interfacing Compiled Code to the Evaluator</a></li>
+          </menu></li>
+      </menu> -->
+    </li>
+    <!-- <li><a href="#s6.1">References</a></li> -->
+    <!-- <li><a href="#s6.2">List of Exercises</a></li> -->
+    <!-- <li><a href="#s6.3">Index</a></li> -->
+  </menu>
+</nav>
+
 <main>
 <section id="s0">
 <section id="s0.1">
@@ -965,7 +1158,8 @@ circumference
     general kind of process known as <em>tree accumulation</em>.
   </p>
   <figure id="f1.1">
-    <img alt="Figure 1.1: Tree representation" src="./img/f1.1.gif">
+    <img alt="Figure 1.1: Tree representation" src="./img/f1.1.gif"
+      loading="lazy">
     <figcaption>
       Figure 1.1: Tree representation, showing the value of each
       subcombination.
@@ -1879,7 +2073,7 @@ test</output>
   </p>
   <figure>
     <img alt="Figure 1.2: Procedural decomposition of the sqrt program"
-      src="./img/f1.2.gif">
+      src="./img/f1.2.gif" loading="lazy">
     <figcaption>
       Figure 1.2: Procedural decomposition of the <code>sqrt</code> program.
     </figcaption>
@@ -2357,7 +2551,8 @@ improve</output>
 <section id="s1.2.1">
   <h4><a href="#s1.2.1">1.2.1 Linear Recursion and Iteration</a></h4>
   <figure id="f1.3">
-    <img alt="Figure 1.3: A linear recursive process" src="./img/f1.3.gif">
+    <img alt="Figure 1.3: A linear recursive process" src="./img/f1.3.gif"
+      loading="lazy">
     <figcaption>
       Figure 1.3: A linear recursive process for computing 6!
     </figcaption>
@@ -2448,7 +2643,8 @@ improve</output>
     product when the counter exceeds <math><mi>n</mi></math>.
   </p>
   <figure id="f1.4">
-    <img alt="Figure 1.4: A linear iterative process" src="./img/f1.4.gif">
+    <img alt="Figure 1.4: A linear iterative process" src="./img/f1.4.gif"
+      loading="lazy">
     <figcaption>
       Figure 1.4: A linear iterative process for computing <math><mn>6</mn><mo
       >!</mo></math>.
@@ -2694,7 +2890,8 @@ k</output>
                  (fib (- n 2))))))</textarea>
   <output for="1.2.2-01" class="block">fib</output>
   <figure id="f1.5">
-    <img alt="Figure 1.5: A tree-recursive process" src="./img/f1.5.gif">
+    <img alt="Figure 1.5: A tree-recursive process" src="./img/f1.5.gif"
+      loading="lazy">
     <figcaption>
       Figure 1.5: The tree-recursive process generated in computing
       <code>(fib&nbsp;5)</code>.
@@ -5294,20 +5491,181 @@ fixed-point</output>
 fixed-point</output>
 </section>
 </section>
-</main>
 
-<nav>
-  <menu>
-    <li><a href="#s0">Preamble</a></li>
-    <li><a href="#s1">1 Building Abstractions with Procedures</a></li>
-  </menu>
-</nav>
+<section id="e1.37">
+  <h3><a href="#e1.37">Exercise 1.37</a></h3>
+  <ol type="a">
+    <li>
+      <p>
+        An infinite <em>continued fraction</em> is an expression of the form
+      </p>
+      <figure>
+        <math display="block">
+          <mrow>
+            <mi>f</mi>
+            <mo>=</mo>
+            <mfrac>
+              <msub><mi>N</mi><mn>1</mn></msub>
+              <mrow>
+                <msub><mi>D</mi><mn>1</mn></msub>
+                <mo>+</mo>
+                <mfrac>
+                  <msub><mi>N</mi><mn>2</mn></msub>
+                  <mrow>
+                    <msub><mi>D</mi><mn>2</mn></msub>
+                    <mo>+</mo>
+                    <mfrac>
+                      <msub><mi>N</mi><mn>3</mn></msub>
+                      <mrow>
+                        <msub><mi>D</mi><mi>3</mi></msub>
+                        <mo>+</mo>
+                        <mi>⋯</mi>
+                      </mrow>
+                    </mfrac>
+                  </mrow>
+                </mfrac>
+              </mrow>
+            </mfrac>
+          </mrow>
+        </math>
+      </figure>
+      <p>
+        As an example, one can show that the infinite continued fraction
+        expansion with the <math><msub><mi>N</mi><mi>i</mi></msub></math> and
+        the <math><msub><mi>D</mi><mi>i</mi></msub></math> all equal to 1
+        produces <math><mn>1</mn><mo>/</mo><mi>φ</mi></math>, where <math><mi
+        >φ</mi></math> is the golden ratio (described in section <a
+        href="#s1.2.2">1.2.2</a>). One way to approximate an infinite continued
+        fraction is to truncate the expansion after a given number of terms.
+        Such a truncation—a so-called <em>k-term finite continued
+        fraction</em>—has the form
+      </p>
+      <figure>
+        <math display="block">
+          <mfrac>
+            <msub><mi>N</mi><mn>1</mn></msub>
+            <mrow>
+              <msub><mn>D</mn><mn>1</mn></msub>
+              <mo>+</mo>
+              <mfrac>
+                <msub><mi>N</mi><mn>2</mn></msub>
+                <mrow>
+                  <mi>⋱</mi>
+                  <mo>+</mo>
+                  <mfrac>
+                    <msub><mi>N</mi><mi>K</mi></msub>
+                    <msub><mi>D</mi><mi>K</mi></msub>
+                  </mfrac>
+                </mrow>
+              </mfrac>
+            </mrow>
+          </mfrac>
+        </math>
+      </figure>
+      <p>
+        Suppose that <code>n</code> and <code>d</code> are procedures of one
+        argument (the term index <math><mi>i</mi></math>) that return the <math
+        ><mi>Ni</mi></math> and <math><mi>Di</mi></math> of the terms of the
+        continued fraction. Define a procedure <code>cont-frac</code> such that
+        evaluating <code>(cont-frac n d k)</code> computes the value of the
+        <math><mi>k</mi></math>-term finite continued fraction. Check your
+        procedure by approximating <math><mn>1</mn><mo>/</mo><mi>φ</mi></math>
+        using
+      </p>
+      <pre><code>(cont-frac (lambda (i) 1.0)
+           (lambda (i) 1.0)
+           k)</code></pre>
+      <p>
+        for successive values of <code>k</code>. How large must you make <code
+        >k</code> in order to get an approximation that is accurate to 4
+        decimal places?
+      </p>
+    </li>
+  </ol>
+  <textarea name="e1.37-01"></textarea>
+  <output for="e1.37-01" class="block">&ZeroWidthSpace;</output>
+  <ol type="a" start="2">
+    <li>
+      If your <code>cont-frac</code> procedure generates a recursive process,
+      write one that generates an iterative process. If it generates an
+      iterative process, write one that generates a recursive process.
+    </li>
+  </ol>
+  <textarea name="e1.37-02"></textarea>
+  <output for="e1.37-02" class="block">&ZeroWidthSpace;</output>
+</section>
+
+<section id="e1.38">
+  <h3><a href="#e1.38">Exercise 1.38</a></h3>
+  <p>
+    In 1737, the Swiss mathematician Leonhard Euler published a memoir <em>De
+    Fractionibus Continuis</em>, which included a continued fraction expansion
+    for <math><mi>e</mi><mo>-</mo><mn>2</mn></math>, where <math><mi
+    >e</mi></math> is the base of the natural logarithms. In this fraction, the
+    <math><msub><mi>N</mi><mi>i</mi></msub></math> are all 1, and the <math
+    ><msub><mi>D</mi><mi>i</mi></msub></math> are successively 1, 2, 1, 1, 4,
+    1, 1, 6, 1, 1, 8, …. Write a program that uses your <code>cont-frac</code>
+    procedure from exercise <a href="#e1.37">1.37</a> to approximate <math><mi
+    >e</mi></math>, based on Euler’s expansion.
+  </p>
+  <textarea name="e1.38-01" data-extends="e1.37-01"></textarea>
+  <output for="e1.38-01" class="block">&ZeroWidthSpace;</output>
+</section>
+
+<section id="e1.39">
+  <h3><a href="#e1.39">Exercise 1.39</a></h3>
+  <p>
+    A continued fraction representation of the tangent function was published
+    in 1770 by the German mathematician J.H. Lambert:
+  </p>
+  <figure>
+    <math display="block">
+      <mrow>
+        <mtext>tan </mtext><mi>x</mi>
+        <mo>=</mo>
+        <mfrac>
+          <mi>x</mi>
+          <mrow>
+            <mn>1</mn>
+            <mo>-</mo>
+            <mfrac>
+              <msup><mi>x</mi><mn>2</mn></msup>
+              <mrow>
+                <mn>3</mn>
+                <mo>-</mo>
+                <mfrac>
+                  <msup><mi>x</mi><mn>2</mn></msup>
+                  <mrow>
+                    <mn>5</mn>
+                    <mo>-</mo>
+                    <mi>⋱</mi>
+                  </mrow>
+                </mfrac>
+              </mrow>
+            </mfrac>
+          </mrow>
+        </mfrac>
+      </mrow>
+    </math>
+  </figure>
+  <p>
+    where <math><mi>x</mi></math> is in radians. Define a procedure <code
+    >(tan-cf x k)</code> that computes an approximation to the tangent function
+    based on Lambert’s formula. <code>K</code> specifies the number of terms to
+    compute, as in exercise <a href="#e1.37">1.37</a>.
+  </p>
+  <textarea name="e1.39-01" data-extends="e1.37-01"></textarea>
+  <output for="e1.39-01" class="block">&ZeroWidthSpace;</output>
+</section>
+</main>
+</main>
 
 <footer>
   <h2>Attribution</h2>
   <p>
     <a href="https://creativecommons.org/licenses/by-sa/4.0/"><img
-      src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> <br>
+      src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" loading="lazy"
+      ></a> <br>
     Structure and Interpretation of Computer Programs by <a
     href="https://mitpress.mit.edu/sicp">Harold Abelson and Gerald Jay Sussman
     with Julie Sussman</a> is licensed under a <a

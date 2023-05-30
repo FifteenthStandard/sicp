@@ -1,16 +1,5 @@
-body { display: grid; }
-body > header { grid-area: header; }
-body > main { grid-area: main; }
-body > footer { grid-area: footer; }
-body > nav { grid-area: nav; }
-
 @media screen and (max-width: 1200px) {
   body {
-    grid-template-areas:
-      'header'
-      'nav'
-      'main'
-      'footer';
     padding: 1vh 1vw;
     margin: auto;
     max-width: 900px;
@@ -20,26 +9,11 @@ body > nav { grid-area: nav; }
 
 @media screen and (min-width: 1201px) {
   body {
-    grid-template-areas:
-      'nav header'
-      'nav main'
-      'nav footer';
-    column-gap: 2ch;
     margin: auto;
     width: fit-content;
     text-align: justify;
     font-size: 1.5em;
-  }
-
-  header, main, footer { max-width: 900px; }
-  nav { width: 400px; }
-
-  nav > menu {
-    font-size: 0.8em;
-    position: sticky;
-    margin-top: 24px;
-    top: 24px;
-    padding-left: 0;
+    max-width: 900px;
   }
 }
 
